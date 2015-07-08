@@ -81,10 +81,29 @@
 		GetSQLValueString('C', 'text'),
 		GetSQLValueString('N', 'text'));
 		$query_7 = mysql_query($sql6, $conexion_mysql);
+		$error .= mysql_error();
+
+		//Query 8
+		$sql7 = sprintf('INSERT INTO persona (per_nombre,per_documento,per_direccion1,per_mail,per_telefono) VALUES (%s,%s,%s,%s,%s)',
+		GetSQLValueString('Consumidor Final', 'text'),
+		GetSQLValueString('001', 'text'),
+		GetSQLValueString('Principal', 'text'),
+		GetSQLValueString('consumidor@final.com', 'text'),
+		GetSQLValueString('000-000', 'text'));
+		$query_8 = mysql_query($sql7, $conexion_mysql);
+		$error .= mysql_error();
+		$id_consumidor = mysql_insert_id();
+
+		//Query 9
+		$sql8 = sprintf('INSERT INTO cliente (per_id,cli_est,cli_eliminado) VALUES (%s,%s,%s)',
+		GetSQLValueString($id_consumidor, 'text'),
+		GetSQLValueString('A', 'text'),
+		GetSQLValueString('N', 'text'));
+		$query_9 = mysql_query($sql8, $conexion_mysql);
 		$error .= mysql_error();		
 
 		//Si no hubo errores COMMIT caso contrario ROLLBACK
-		if(($query_1)&&($query_2)&&($query_3)&&($query_4)&&($query_5)&&($query_6)&&($query_7)){
+		if(($query_1)&&($query_2)&&($query_3)&&($query_4)&&($query_5)&&($query_6)&&($query_7)&&($query_8)){
 			mysql_query("COMMIT;", $conexion_mysql);
 			$MSG = 'Insertado exitosamente.';
 			//$MSGdes = '[ID: '.$id.'] '.$nom;
