@@ -100,10 +100,60 @@
 		GetSQLValueString('A', 'text'),
 		GetSQLValueString('N', 'text'));
 		$query_9 = mysql_query($sql8, $conexion_mysql);
-		$error .= mysql_error();		
+		$error .= mysql_error();
+
+		//Query 10
+		$sql9 = sprintf('INSERT INTO tipos (tip_des,tip_tabla,tip_eliminado) VALUES (%s,%s,%s)',
+		GetSQLValueString('Compras', 'text'),
+		GetSQLValueString('ajuste', 'text'),
+		GetSQLValueString('N', 'text'));
+		$query_10 = mysql_query($sql9, $conexion_mysql);
+		$error .= mysql_error();
+		//Query 10
+		$sql10 = sprintf('INSERT INTO tipos (tip_des,tip_tabla,tip_eliminado) VALUES (%s,%s,%s)',
+		GetSQLValueString('Deposito', 'text'),
+		GetSQLValueString('movimientos_caja', 'text'),
+		GetSQLValueString('N', 'text'));
+		$query_11 = mysql_query($sql10, $conexion_mysql);
+		$error .= mysql_error();
+		
+		$sql11 = sprintf('INSERT INTO tipos (tip_des,tip_tabla,tip_eliminado) VALUES (%s,%s,%s)',
+		GetSQLValueString('Egreso', 'text'),
+		GetSQLValueString('movimientos_caja', 'text'),
+		GetSQLValueString('N', 'text'));
+		$query_12 = mysql_query($sql11, $conexion_mysql);
+		$error .= mysql_error();				
+
+		$sql12 = sprintf('INSERT INTO tipos (tip_des,tip_tabla,tip_eliminado) VALUES (%s,%s,%s)',
+		GetSQLValueString('Ingreso por venta', 'text'),
+		GetSQLValueString('movimientos_caja', 'text'),
+		GetSQLValueString('N', 'text'));
+		$query_13 = mysql_query($sql12, $conexion_mysql);
+		$error .= mysql_error();
+
+		$sql13 = sprintf('INSERT INTO tipos (tip_des,tip_tabla,tip_eliminado) VALUES (%s,%s,%s)',
+		GetSQLValueString('Abono', 'text'),
+		GetSQLValueString('movimientos_caja', 'text'),
+		GetSQLValueString('N', 'text'));
+		$query_14 = mysql_query($sql13, $conexion_mysql);
+		$error .= mysql_error();
+
+		$sql14 = sprintf('INSERT INTO tipos (tip_des,tip_tabla,tip_eliminado) VALUES (%s,%s,%s)',
+		GetSQLValueString('promocion', 'text'),
+		GetSQLValueString('Ajuste', 'text'),
+		GetSQLValueString('N', 'text'));
+		$query_15 = mysql_query($sql14, $conexion_mysql);
+		$error .= mysql_error();
+
+		$sql15 = sprintf('INSERT INTO tipos (tip_des,tip_tabla,tip_eliminado) VALUES (%s,%s,%s)',
+		GetSQLValueString('Cambio de Unidad', 'text'),
+		GetSQLValueString('Ajuste', 'text'),
+		GetSQLValueString('N', 'text'));
+		$query_16 = mysql_query($sql15, $conexion_mysql);
+		$error .= mysql_error();
 
 		//Si no hubo errores COMMIT caso contrario ROLLBACK
-		if(($query_1)&&($query_2)&&($query_3)&&($query_4)&&($query_5)&&($query_6)&&($query_7)&&($query_8)){
+		if(($query_1)&&($query_2)&&($query_3)&&($query_4)&&($query_5)&&($query_6)&&($query_7)&&($query_8)&&($query_9)&&($query_10)&&($query_11)&&($query_12)&&($query_13)&&($query_14)&&($query_15)&&($query_16)){
 			mysql_query("COMMIT;", $conexion_mysql);
 			$MSG = 'Insertado exitosamente.';
 			//$MSGdes = '[ID: '.$id.'] '.$nom;
