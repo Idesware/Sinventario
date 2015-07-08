@@ -1,0 +1,80 @@
+body{
+	padding-top: 50px;
+	padding-bottom: 50px;
+	background-color: #f5f5f5;
+}
+
+.span7 img{
+	filter: alpha(opacity=11);
+	opacity: 0.11;
+	-moz-opacity:0.11;
+	width: 100%;
+}
+
+span{
+	color:red;
+	font-size:18px;
+}
+
+.formulario-login{
+	max-width: 300px;
+	padding: 20px 30px 30px;
+	margin: auto;
+	background-color: #fff;
+	border: 1px solid #e5e5e5;
+
+	/*estilo redondeado en las puntas*/
+   border-radius: 10px;
+   -webkit-border-radius: 10px;
+   -moz-border-radius: 10px;
+   
+   /*efecto de sombras*/
+   box-shadow: 8px 8px 15px #909090;
+   -webkit-box-shadow: 8px 8px 15px #909090;
+   -moz-box-shadow: 8px 8px 15px #909090;
+}
+
+.formulario-login h3{
+	text-align: center;
+}
+
+.formulario-login .checkbox{
+	margin-bottom: 10px;
+}
+
+.formulario-login input[type="text"], .formulario-login input[type="password"]{
+	font-size: 16px;
+	height: auto;
+	margin-bottom: 15px;
+	padding: 7px 9px;
+}
+
+.formulario-login input[type="text"]:hover{
+	border:1px solid #86d0ff;
+}
+
+.formulario-login input[type="password"]:hover{
+	border:1px solid #86d0ff;
+}
+
+footer{
+	position:fixed;
+	bottom:0;
+	width:100%;
+	letter-spacing:0.05em;
+	text-align: center;
+	color: white;
+	background: #35397c;
+		
+	/*
+	position:fixed;
+	left:0;
+	bottom:0;
+	width:100%;
+	letter-spacing:0.10em;
+	text-align: center;
+	color: white;
+	background: #35397c;
+	border-top:10px solid #2e316d;
+	*/
+}

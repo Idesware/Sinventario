@@ -1,0 +1,59 @@
+.contenedor_login{box-shadow: 7px 7px 8px #818181;
+-webkit-box-shadow: 7px 7px 8px #818181;
+-moz-box-shadow: 7px 7px 8px #818181;
+-webkit-border-radius: 15px 15px 15px 15px;
+-moz-border-radius: 15px 15px 15px 15px;
+-o-border-radius: 15px 15px 15px 15px;
+
+filter: progid:DXImageTransform.Microsoft.dropShadow(color=#818181, offX=7, offY=7, positive=true);
+width:220px; height:170px; color:#ccc;padding:70px;background:#333; border:2px solid #000; 
+}
+
+.contenedor_menu{box-shadow: 7px 7px 8px #000000;
+-webkit-box-shadow: 7px 7px 8px #818181;
+-moz-box-shadow: 7px 7px 8px #818181;
+-webkit-border-radius: 15px 15px 15px 15px;
+-moz-border-radius: 15px 15px 15px 15px;
+-o-border-radius: 15px 15px 15px 15px;
+
+filter: progid:DXImageTransform.Microsoft.dropShadow(color=#000000, offX=7, offY=7, positive=true);
+width:40%; color:#ccc;padding:70px;background:#333; border:1px solid #000; 
+}
+
+.contenedor_cuerpo{box-shadow: 7px 7px 8px #000000;
+-webkit-box-shadow: 7px 7px 8px #818181;
+-moz-box-shadow: 7px 7px 8px #818181;
+-webkit-border-radius: 15px 15px 15px 15px;
+-moz-border-radius: 15px 15px 15px 15px;
+-o-border-radius: 15px 15px 15px 15px;
+
+filter: progid:DXImageTransform.Microsoft.dropShadow(color=#000000, offX=7, offY=7, positive=true);
+width:80%; height:80%; color:#ccc;padding:70px;background:#fff; border:1px solid #000; 
+}
+
+.contenedor_cab{box-shadow: 7px 7px 8px #000000;
+-webkit-box-shadow: 7px 7px 8px #818181;
+-moz-box-shadow: 7px 7px 8px #818181;
+-webkit-border-radius: 15px 15px 15px 15px;
+-moz-border-radius: 15px 15px 15px 15px;
+-o-border-radius: 15px 15px 15px 15px;
+
+filter: progid:DXImageTransform.Microsoft.dropShadow(color=#000000, offX=7, offY=7, positive=true);
+width:80%; height:80%; color:#ccc;padding:30px;background:#fff; border:1px solid #000; 
+}
+
+.rollover {
+filter:alpha(opacity=100);
+-moz-opacity:1.0;
+-khtml-opacity: 1.0;
+opacity: 1.0;
+padding:0px 2px 2px 0px;
+}
+
+.rollover:hover {
+filter:alpha(opacity=80);
+-moz-opacity:0.8;
+-khtml-opacity: 0.8;
+opacity: 0.8;
+padding:2px 0px 0px 2px;
+}
