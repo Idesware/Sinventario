@@ -18,7 +18,7 @@
 </head>
 <body>
 	<?php include(RUTAcom.'menu-principal.php');
-	$sql = sprintf("SELECT pro_id ,pro_codigo,pro_nombre,unidad_nom,cat_nom,pro_usuario_crea FROM producto  INNER JOIN unidad_producto ON producto.unidad_id=unidad_producto.unidad_id
+	$sql = sprintf("SELECT pro_id ,pro_codigo,pro_serie,pro_nombre,unidad_nom,cat_nom,pro_usuario_crea FROM producto  INNER JOIN unidad_producto ON producto.unidad_id=unidad_producto.unidad_id
 		INNER JOIN categoria_producto ON producto.cat_id=categoria_producto.cat_id
         WHERE pro_eliminado = 'N' ORDER BY pro_nombre ASC");
 
@@ -54,6 +54,7 @@
 					<tr>
 						<th></th>
 						<th>Codigo</th>
+                        <th>Serie</th>
 						<th>Descripcion</th>
 						<th>Unidad</th>
 						<th>Categoria</th>
@@ -77,6 +78,7 @@
 							</div>
 						</td>
 						<td><?php echo $row['pro_codigo']; ?></td>
+                        <td><?php echo $row['pro_serie']; ?></td>
 						<td><?php echo $row['pro_nombre']; ?></td>
 						<td><?php echo $row['unidad_nom']; ?></td>
 						<td><?php echo $row['cat_nom']; ?></td>

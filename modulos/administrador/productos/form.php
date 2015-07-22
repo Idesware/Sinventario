@@ -105,6 +105,24 @@
                 <td style="padding-left:10px">
                 </td>
               </tr>
+              
+              
+              <tr >
+                <td style="padding-left:10px">
+                	<label class="control-label">Serie</label>
+                </td>
+                <td style="padding-left:10px">
+					<input type="text" id="inputSer" name="inputSer" placeholder="Serie" value="<?php echo $datPro['pro_serie']; ?>" required>
+
+                </td>
+                <td style="padding-left:10px">
+                </td>
+              </tr>
+              
+              
+              
+              
+              
               <tr >
                 <td style="padding-left:10px">
                 	<label class="control-label">Nombre</label>

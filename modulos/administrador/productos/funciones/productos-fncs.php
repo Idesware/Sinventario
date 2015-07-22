@@ -11,6 +11,7 @@
 	$empleado = $_POST["empleado"];
 	$input_categoria_codigo = $_POST["input_cat_pro"];
 	$nombre_usuario = $_POST["nombre_usuario"];
+	$serie = $_POST["inputSer"];
 	
 	
 	date_default_timezone_set('America/Guayaquil');
@@ -37,8 +38,9 @@
 			mysql_query("SET AUTOCOMMIT=0;", $conexion_mysql); //Desabilita el autocommit
 			mysql_query("BEGIN;", $conexion_mysql); //Inicia la transaccion
 			
-        	$query_insert_user = sprintf("INSERT INTO producto (pro_codigo, pro_nombre, pro_fecha_crea, pro_eliminado, suc_id, unidad_id, cat_id, pro_usuario_crea) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)",
+        	$query_insert_user = sprintf("INSERT INTO producto (pro_codigo, pro_serie, pro_nombre, pro_fecha_crea, pro_eliminado, suc_id, unidad_id, cat_id, pro_usuario_crea) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)",
                        GetSQLValueString($codigo, "text"),
+					   GetSQLValueString($serie, "text"),
                        GetSQLValueString($nombre, "text"),
 					   GetSQLValueString($fecha_actual, "text"),
 					   GetSQLValueString('N', "text"),
@@ -87,10 +89,11 @@
 				mysql_query("SET AUTOCOMMIT=0;", $conexion_mysql); //Desabilita el autocommit
 				mysql_query("BEGIN;", $conexion_mysql); //Inicia la transaccion
 				
-				$query_update_user = sprintf("UPDATE producto set pro_nombre = %s, pro_codigo = %s, unidad_id = %s, cat_id = %s WHERE pro_id = %s",
+				$query_update_user = sprintf("UPDATE producto set pro_nombre = %s, pro_serie = %s, pro_codigo = %s, unidad_id = %s, cat_id = %s WHERE pro_id = %s",
 
 						   
 						   GetSQLValueString($nombre, "text"),
+						   GetSQLValueString($serie, "text"),
 						   GetSQLValueString($codigo, "text"),
 						   GetSQLValueString($input_unidad_codigo, "int"),
 						   GetSQLValueString($input_categoria_codigo, "int"),
