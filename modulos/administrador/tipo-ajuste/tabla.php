@@ -34,7 +34,6 @@
 				<thead>
 					<tr>
                     	<th width="100px"></th>
-						<th>ID</th>
                         <th>Nombre</th>
                   </tr>
 				</thead>
@@ -44,7 +43,6 @@
                     	<td>
                         <a class="btn btn-danger btn-mini" onClick="Eliminar(<?php  echo $row['tip_id'];?>)"><i class="icon-trash"></i> Eliminar</a>
                         </td>
-						<td><strong><?php echo $row['tip_id']; ?></strong></td>
                         <td><strong><?php echo $row['tip_des']; ?></strong></td>
                      </tr>
 					<?php } while ($row = mysql_fetch_assoc($query)); ?>

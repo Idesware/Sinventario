@@ -40,14 +40,12 @@
           
         </div>
         <div class="row-fluid">
-            <div class="span8">
+            <div class="span12">
                 <ul class="breadcrumb">
                     <li class="active"><i class="icon-home"></i> Tipos de Ajustes</li>
                 </ul>
             </div>
-            <div class="span4">
-                <a class="btn btn-primary btn-large btn-block" onClick="Ventas()"><strong> NUEVO TIPO AJUSTE</strong></a>
-            </div>
+            
         </div>
         <div class="portlet-body">
             <div class="row-fluid">

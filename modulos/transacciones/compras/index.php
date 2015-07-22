@@ -227,11 +227,12 @@ $("#inputfecha_com").datepicker({
                 datatype: "clientSide",
                 width: 700,
                 async: false,
-                colNames: ['IdPro', 'Producto', 'Nombre Producto', 'Cantidad', 'Precio', 'Subtotal', 'IVA', 'Total' ],
+                colNames: ['IdPro', 'Producto', 'Nombre Producto', 'Serie', 'Cantidad', 'Precio', 'Subtotal', 'IVA', 'Total' ],
                 colModel: [
 				{ name: 'idpro', index: 'idpro', width: 90, sorttype: 'string', align: "center", frozen: true, sortable: false, hidden: true  },
                         { name: 'producto', index: 'producto', width: 90, sorttype: 'string', align: "center", frozen: true, sortable: false, hidden: true },
 						{ name: 'nombreproducto', index: 'nombreproducto', width: 90, sorttype: 'string', align: "center", frozen: true, sortable: false },
+						{ name: 'serie', index: 'serie', width: 90, sorttype: 'string', align: "center", frozen: true, sortable: false },
                         { name: 'cantidad', index: 'cantidad', width: 90, sorttype: 'string', align: "center", frozen: true, sortable: false, editable: true, editrules: { number: true }, editoptions: { dataInit: function (elem) { $(elem).bind("keypress", function (e) { return soloLetrasB(e) }) } } },
 						{ name: 'precio', index: 'precio', width: 90, sorttype: 'string', align: "center", frozen: true, sortable: false, editable: true, editrules: { number: true }, editoptions: { dataInit: function (elem) { $(elem).bind("keypress", function (e) { return soloLetrasB(e) }) } } },
 						{ name: 'subtotal', index: 'subtotal', width: 90, sorttype: 'string', align: "center", frozen: true, sortable: false },
