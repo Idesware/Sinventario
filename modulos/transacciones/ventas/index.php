@@ -140,7 +140,7 @@
                   			<div class="control-group">
 								<label class="control-label">Total</label>
 									<div class="controls">
-										<input type="text" class="input-block-level" id="inputtot" name="inputtot" disabled style="height:100px; font-family: Arial; font-size: 40pt; color:red; width:190px;">
+										<input type="text" class="input-block-level" id="inputtot" name="inputtot" disabled style="height:100px; font-family: Arial; font-size: 40pt; color:red; width:130px;">
 
 									</div>
 							</div>
@@ -277,11 +277,12 @@ else
                 datatype: "clientSide",
                 width: 700,
                 async: false,
-                colNames: ['idpro', 'Producto', 'Nombre Producto', 'Cantidad', 'precio', 'Subtotal', 'IVA', 'Total', 'AplicaIVA' ],
+                colNames: ['idpro', 'Producto', 'Nombre Producto', 'Serie', 'Cantidad', 'precio', 'Subtotal', 'IVA', 'Total', 'AplicaIVA' ],
                 colModel: [
 				{ name: 'idpro', index: 'idpro', width: 90, sorttype: 'string', align: "center", frozen: true, sortable: false, hidden: true },
                         { name: 'producto', index: 'producto', width: 90, sorttype: 'string', align: "center", frozen: true, sortable: false, hidden: true },
 						{ name: 'nombreproducto', index: 'nombreproducto', width: 90, sorttype: 'string', align: "center", frozen: true, sortable: false },
+						{ name: 'serie', index: 'serie', width: 90, sorttype: 'string', align: "center", frozen: true, sortable: false },
                         { name: 'cantidad', index: 'cantidad', width: 90, sorttype: 'string', align: "center", frozen: true, sortable: false, editable: false, editrules: { number: true }, editoptions: { dataInit: function (elem) { $(elem).bind("keypress", function (e) { return soloLetrasB(e) }) } } },
 						{ name: 'precio', index: 'precio', width: 90, sorttype: 'string', align: "center", frozen: true, sortable: false, editable: false, editrules: { number: true }, editoptions: { dataInit: function (elem) { $(elem).bind("keypress", function (e) { return soloLetrasB(e) }) } } },
 						{ name: 'subtotal', index: 'subtotal', width: 90, sorttype: 'string', align: "center", frozen: true, sortable: false },
@@ -528,7 +529,7 @@ else
 					var total = (parseFloat(subtotal) + parseFloat(ivasubt)).toFixed(2);
 
 					var mydata = [
-                     { idpro: datos['pro_id'], producto: $("#inputproducto").val(), nombreproducto: $("#inputdetalle").val(), cantidad: $("#inputcantidad").val(), precio: precunit, total: total, iva: ivasubt, aplicaiva: datos['est_iva'], subtotal: subtotal }
+                     { idpro: datos['pro_id'], producto: $("#inputproducto").val(), serie:datos['pro_serie'], nombreproducto: $("#inputdetalle").val(), cantidad: $("#inputcantidad").val(), precio: precunit, total: total, iva: ivasubt, aplicaiva: datos['est_iva'], subtotal: subtotal }
         			];
 
             for (var i = 0; i <= mydata.length; i++) {

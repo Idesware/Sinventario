@@ -131,7 +131,7 @@
 		$row_RS_datos = mysql_fetch_assoc($RS);		
 		$pro_id = $row_RS_datos["pro_id"];
 
-		$query1=sprintf("SELECT det_pro_id, pro_id, det_pro_costo, val_gan_pvp, est_iva, met_gan_pvp FROM detalle_producto WHERE pro_id = %s AND det_pro_eliminado = 'N'",
+		$query1=sprintf("SELECT det_pro_id, detalle_producto.pro_id, pro_serie, det_pro_costo, val_gan_pvp, est_iva, met_gan_pvp FROM detalle_producto INNER JOIN producto ON detalle_producto.pro_id = producto.pro_id WHERE detalle_producto.pro_id = %s AND det_pro_eliminado = 'N'",
 		GetSQLValueString($pro_id, "int"));    
   		$RS1 = mysql_query($query1, $conexion_mysql) or die(mysql_error());
 		$row_RS_datos1 = mysql_fetch_assoc($RS1);
