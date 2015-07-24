@@ -118,11 +118,7 @@
                 <td style="padding-left:10px">
                 </td>
               </tr>
-              
-              
-              
-              
-              
+                                                                
               <tr >
                 <td style="padding-left:10px">
                 	<label class="control-label">Nombre</label>
@@ -136,7 +132,7 @@
               </tr>
               </div>
               <div>
-              <tr>
+              
               
               <tr >
                 <td style="padding-left:10px">

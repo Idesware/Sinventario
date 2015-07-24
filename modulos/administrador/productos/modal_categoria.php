@@ -53,10 +53,9 @@ function guardarCategoria() {
         },
         success:  function(resultado) 
             {
-                
+               $("#input_cat_pro").refresh();
 			}
     });
     
 }
-
 </script>

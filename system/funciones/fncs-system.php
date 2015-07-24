@@ -498,10 +498,26 @@ echo '<option value="'.$rows_1[$Var_con].'" '.$valSel.'>'.$rows_1[$Var_con2].'</
 echo '<select>';
 }
 
-
 function fnc_listUnidades($idvar, $Var_con, $Var_con2, $tabla, $clase=NULL, $id=NULL, $opt=NULL){
 include(RUTAcon.'conexion-mysql.php');
 $sql = "SELECT * FROM ".$tabla;
+$query = mysql_query($sql, $conexion_mysql) or die(mysql_error());
+$tot_rows = mysql_num_rows($query);
+echo '<select class="'.$clase.'" id="'.$id.'" name="'.$id.'" '.$opt.'>';
+echo '<option>- Seleccione Opcion- </option>';
+while($rows_1 = mysql_fetch_array($query)){
+if($idvar==$rows_1[$Var_con]) $valSel='selected';
+else $valSel='';
+echo '<option value="'.$rows_1[$Var_con].'" '.$valSel.'>'.$rows_1[$Var_con2].'</option>';
+}
+echo '<select>';
+}
+
+function fnc_listEmpleados($Var_con, $Var_con2, $tabla, $clase=NULL, $id=NULL, $opt=NULL){
+include(RUTAcon.'conexion-mysql.php');
+$sql = "SELECT emp_id,per_nombre FROM persona 
+inner join empleado on persona.per_id=empleado.per_id
+where emp_eliminado='N'";
 $query = mysql_query($sql, $conexion_mysql) or die(mysql_error());
 $tot_rows = mysql_num_rows($query);
 echo '<select class="'.$clase.'" id="'.$id.'" name="'.$id.'" '.$opt.'>';

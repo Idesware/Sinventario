@@ -26,6 +26,7 @@
 		$desc = $_POST['descuento'];
 		$referencia = $_POST['referencia'];
 		$cedula = $_POST['cedula'];
+		$vendedor = $_POST['vendedor'];
 		
 		if($condPago == 0)
 		{
@@ -41,7 +42,7 @@
   		$RS_cedula = mysql_query($query_cedula, $conexion_mysql) or die(mysql_error());
 		$row_RS_cedula = mysql_fetch_assoc($RS_cedula);		
 		$cli_id = $row_RS_cedula["cli_id"];
-		$query_insert_user = sprintf("INSERT INTO cabecera_ventas (suc_id, cab_ven_total, cab_ven_fecha, cab_ven_usu, cab_ven_ref, cab_ven_subt, cab_ven_iva, cab_ven_des, cab_ven_for_pag, cli_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
+		$query_insert_user = sprintf("INSERT INTO cabecera_ventas (suc_id, cab_ven_total, cab_ven_fecha, cab_ven_usu, cab_ven_ref, cab_ven_subt, cab_ven_iva, cab_ven_des, cab_ven_for_pag, cli_id,emp_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
                        GetSQLValueString($sucursal, "text"),
 					   GetSQLValueString($totcab, "text"),
 					   GetSQLValueString($fecha_actual, "text"),
@@ -51,7 +52,8 @@
 					   GetSQLValueString($iva, "text"),
 					   GetSQLValueString($desc, "text"),
 					   GetSQLValueString($tipo_pago, "text"),
-					   GetSQLValueString($cli_id, "text"));
+					   GetSQLValueString($cli_id, "text"),
+					   GetSQLValueString($vendedor, "text"));
 					   
 			$query = mysql_query($query_insert_user, $conexion_mysql) or die(mysql_error());
 			$id_cab_ventas=mysql_insert_id();

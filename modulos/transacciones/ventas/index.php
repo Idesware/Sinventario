@@ -37,7 +37,7 @@
 		<div class="control-group well span11"> 
         <div align="right">  <strong><input type="button" style="font-style:oblique" align="left" class="btn btn-primary"  name="Otras_Ventas" id="Otras_Ventas" value="RECARGAS EN GENERAL" style="text-shadow:#C00" onClick="recargas()"></strong></div>
 
-        <div >
+        
 			<div class="page-header"> <h3 style="color:#36F">Referencia de Venta <span class="label label-success" style="font-size:22px; padding-top:10px; padding-right: 5px; padding-left:5px; padding-bottom:10px"><?php echo ' # '.$ref;?></span> </h3>
 
     			<div class="row-fluid">
@@ -149,22 +149,26 @@
         		</div>
      		</div>
 			<div class="row-fluid">
-        		<input type="button" class="btn btn-primary" name="guardar_Venta" id="guardar_Venta" value="GENERAR FACTURA" onclick="guardarVenta()">
+        		<div class="span5">
+        			<label class="control-label">Forma de Pago</label>
+        				<select name="Pagos" id="Pagos">
+        					<option value="0">Contado</option>
+							<option value="1">Credito</option>
+						</select>
+				</div>
+            	<div class="span4">
+            		<input type="button" class="btn btn-primary" name="guardar_Venta" id="guardar_Venta" value="GENERAR FACTURA" onclick="guardarVenta()">
 
         		<input type="button" class="btn btn-primary" name="nueva_venta" id="nueva_venta" value="NUEVA FACTURA" onclick="nuevaVenta()">
         		
 
             <input type="button" class="btn btn-primary" name="cobrar" id="cobrar" value="COBRAR" onclick="$('#modalcobrar').modal()">
-            <div class="span4">
-
-            <div class="span4">
-        			<label class="control-label">Forma de Pago</label>
-        			<select name="Pagos" id="Pagos">
-        				<option value="0">Contado</option>
-						<option value="1">Credito</option>
-					</select>
-				</div>
-			</div>
+            </div>
+            <div class="span2">
+        			<label class="control-label">Vendedor</label>
+        			<?php 
+                    fnc_listEmpleados('emp_id','per_nombre', 'persona', 'input-block-level', 'inputempleado', 'autofocus required');?>
+			</div>	            		                                     
 		</div>
 	</div>
     <!-- Modal -->
@@ -607,7 +611,8 @@ function guardarVenta() {
 				descuento: $("#inputdescu").val(),
 				subtotal: $("#inputsubt").val(),
 				referencia: $("#referencia").val(),
-				cedula: $("#inputcedula").val()
+				cedula: $("#inputcedula").val(),
+				vendedor: $("#inputempleado").val()
 			},
 			success:  function(resultado) {
 				abrirVentanaIMP(resultado);
