@@ -56,7 +56,8 @@ function guardarUnidad() {
                 
 			}
     });
-    
+	
+	location.reload(true);  
 }
 
 

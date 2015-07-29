@@ -130,6 +130,20 @@ function fnc_datEmp($id){
 	return $row; 
 	mysql_free_result($query); 
 }
+
+//nombre EMPLEADO con el emp_cod
+function fnc_nomEmp($id){
+	include(RUTAcon.'conexion-mysql.php');
+	$sql = sprintf("SELECT per_nombre FROM empleado 
+	inner join persona on persona.per_id=empleado.per_id
+	WHERE emp_id = %s AND emp_eliminado = %s", 
+	GetSQLValueString($id, "int"),
+	GetSQLValueString('N', "text"));
+	$query = mysql_query($sql, $conexion_mysql) or die(mysql_error());
+	$row = mysql_fetch_assoc($query);
+	return $row; 
+	mysql_free_result($query); 
+}
 //DATOS USUARIO
 function fnc_datUsu($id){ 
 	include(RUTAcon.'conexion-mysql.php');

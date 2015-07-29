@@ -71,9 +71,9 @@
 
 	}
 
-
-
 	$_SESSION['MSG'] = $MSG;
 	$_SESSION['MSGdes'] = $MSGdes;
 	$_SESSION['MSGimg'] = $MSGimg;
+	
+	header("location:form.php");
 ?>

@@ -99,14 +99,12 @@
                 	<label class="control-label">Código</label>
                 </td>
                 <td style="padding-left:10px">
-					<input type="text" id="inputCod" name="inputCod" placeholder="Codigo" value="<?php echo $datPro['pro_codigo']; ?>" required>
+					<input type="text" id="inputCod" name="inputCod" placeholder="Codigo" value="<?php echo $datPro['pro_codigo']; ?>" data-toggle="tooltip" title="Por favor primero debe crear la unidad y la categoria" required>
 
                 </td>
                 <td style="padding-left:10px">
                 </td>
-              </tr>
-              
-              
+              </tr>                            
               <tr >
                 <td style="padding-left:10px">
                 	<label class="control-label">Serie</label>
@@ -136,7 +134,7 @@
               
               <tr >
                 <td style="padding-left:10px">
-                	<label class="control-label">Unidad</label>
+                	<label class="control-label">Unidad</label>                    
                 </td>
                 <td style="padding-left:10px">
 					<?php $idSel= $datPro['unidad_id'];
@@ -176,6 +174,8 @@
                       
 
                         <input type="hidden" name="pro_id" id="pro_id" value="<?php echo $pro_id; ?>">
+                        
+                        <a id="btn_guardar" class="btn btn-success" onClick="refrescar()">refrescar</a>
 					</div>
 				</form>
 			</div>
@@ -206,5 +206,12 @@ $(document).on('ready', function(){
 				autoFocus: true
 			});
 		});
+
+
+function refrescar() 
+{    	
+		$("#div_unidad").load("form.php"); 
+}
+
 
 </script>

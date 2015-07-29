@@ -30,7 +30,7 @@
     <div class="container" align="center">
 		<div class="control-group well span11">
 	
-			<div class="page-header"> <h4>REPORTE VENTAS</h4>
+			<div class="page-header"> <h4>REPORTE VENTAS POR VENDEDOR</h4>
             <br/>
                 <div class="row-fluid">
                 	<div class="span3">
@@ -51,15 +51,12 @@
             			</div>
         			</div>
                     
-                    <div class="span3">
-         				<div class="control-group">
-            				<label class="control-label">Cajero</label>
-                				<div class="controls">
-                    				<input type="text" id="inputvendedor" name="inputvendedor" enable placeholder=" Escoja Vendedor">
-                    			</div>      
-            			</div>
-        			</div>
-                    
+                   
+         				<div class="span2">
+        			<label class="control-label">Vendedor</label>
+        			<?php 
+                    fnc_listEmpleados('emp_id','per_nombre', 'persona', 'input-block-level', 'inputempleado', 'autofocus required');?>
+			</div>        			                  
                     <div class="span2">
          				<div class="control-group">
                         <br>
@@ -105,7 +102,7 @@
 function reporte(){
 	fini=$("#inputfechainicio").val() + ' 0:00:00';
 	ffin=$("#inputfechafin").val() + ' 23:59:00';
-	var vendedor = $("#inputvendedor").val();
+	var vendedor = $("#inputempleado").val();
 	
 			window.open( "ReportePDF.php?fini="+fini+"&ffin="+ffin+"&vendedor="+vendedor, "Ventas del Dia" , "width=800 , height = 600");
 		}
@@ -130,7 +127,7 @@ var dates = $("#inputfechainicio, #inputfechafin").datepicker({
                 dates.not(this).datepicker("option", option, date);
             }
         });
-		
+				
 		$( "#inputvendedor" ).autocomplete({
 source: $("#url_autocomplete").val() ,//availableTags,
 select: function( event, ui ) {
