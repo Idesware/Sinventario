@@ -787,15 +787,15 @@ function calculatotales(){
 
     var rows = $('#list tr:gt(0)');
 	//sumar el total
-	rows.children('td:nth-child(10)').each(function () {
+	rows.children('td:nth-child(11)').each(function () {
 		var y = $(this).text().replace(",", ".");
 		sumtotal += parseFloat(y);
 	});
-	rows.children('td:nth-child(8)').each(function () {
+	rows.children('td:nth-child(9)').each(function () {
 		var y = $(this).text().replace(",", ".");
 		sumsubt += parseFloat(y);
 	});
-	rows.children('td:nth-child(9)').each(function () {
+	rows.children('td:nth-child(10)').each(function () {
 		var y = $(this).text().replace(",", ".");
 		sumiva += parseFloat(y);
 	});
