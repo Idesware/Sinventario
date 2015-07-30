@@ -5,6 +5,8 @@
 	$id_emp = $_SESSION['id_empleado'];
 	$id_user = $_SESSION['id_usuario'];
 	$cb_accion= $_POST["accion"];
+	$persona = fnc_usuario($id_user);
+	$nombre_usuario = $persona['per_nombre'];
 ?>
 <!doctype html>
 <html>
@@ -38,6 +40,7 @@ id="subirArchivo">
             <div class="row">
                 <button type="submit" class="btn btn-sm btn-success">Subir</button>
             </div>
+            <input type="hidden" id="nombre_usuario" name="nombre_usuario" value="<?php echo $nombre_usuario; ?>">
         	</form>
 		</div>
 	</div>
@@ -53,6 +56,7 @@ function cargar_accion()
 	 {
 		 alert("Tiene que escoger una Opción");
 	 }
+
 	 if(accion=="1")
 	 {
 		 elemento.setAttribute("action","cliente.php");
