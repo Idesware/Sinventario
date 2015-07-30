@@ -13,10 +13,11 @@
 	<meta charset="utf-8"></meta>
 	<title>Gestión de Sucursales</title>
     <?php include(RUTAp.'jquery/styl-jquery.php'); ?>
-    <?php require_once(RUTAs.'styles/styl-bootstrap.php'); ?>
+    <?php require_once(RUTAs.'styles/styl-bootstrap.php'); ?>   
 </head>
 <body>
-	<?php include(RUTAcom.'menu-principal.php'); 
+	<?php include(RUTAcom.'menu-principal.php');
+	 
 	$sql = sprintf("SELECT * FROM sucursal WHERE suc_eliminado = 'N' ORDER BY suc_id DESC");
 	$query = mysql_query($sql, $conexion_mysql) or die(mysql_error());
 	$row = mysql_fetch_assoc($query);

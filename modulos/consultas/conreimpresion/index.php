@@ -10,9 +10,7 @@
 	$URL_Visita_Ult=basename($_SERVER['REQUEST_URI'], "/");
 	$url_autorizado=fnc_datURLv($URL_Visita_Ult, $id_user);
 	if((basename($url_autorizado['men_link'],"/"))==$URL_Visita_Ult){
-
-
-
+unset ($_SESSION["aux"]);
 ?>
 
 <!doctype html>
@@ -48,7 +46,7 @@
                         <br>
 						<label class="control-label"></label>
 								<div class="controls">
-                <input type="button" class="btn btn-primary" value="IMPRIMIR FACTURA" onClick="abrirVentanaIMP()">
+                <input type="button" class="btn btn-primary" value="IMPRIMIR FACTURA" onClick="imprimir_factura()">                               
 								</div>
 						</div>
     				</div>  
@@ -77,6 +75,7 @@
     <input type="hidden" id="id_suc" value="<?php echo $sucursal['suc_id']; ?>">
     <input type="hidden" id="url_autocomplete" value="<?php echo $RUTAm."consultas/constock/funciones/autocomplete_stock.php"; ?>">
    <input type="hidden" id="url_impresion" value="<?php echo $RUTAm."impresion/factura.php"; ?>">
+   
 </body>
 </html>
 <?php }else
@@ -140,24 +139,13 @@ if(e.which == 13) {
    	 }
 });
    
+function imprimir_factura(){	
 
+var aux = $("#input_num_fact").val();
 
-</script>
-
-<script>
-
-function abrirVentanaIMP() {
-    url_impresion=$("#url_impresion").val();
-    var Referencia=$("#input_num_fact").val();  
-    var nomcli= (rowData['cliente']);
-   
-$.post(url_impresion, { REF: Referencia, NOMCLI: nomcli }, function (result) {
-            WinId = window.open('', 'newwin', 'width=400,height=500');//resolucion de la ventana
-            WinId.document.open();
-            WinId.document.write(result);
-            WinId.document.close();
-        });
-}
-
+		window.open( "../../impresion/facturaSPDF.php?referencia=aux", "Impresion Factura" , "width=800 , height = 600");
+		}
 
 </script>
+
+

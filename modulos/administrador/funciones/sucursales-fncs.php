@@ -8,6 +8,7 @@
 	$suc_postal = $_POST['suc_postal'];
 	$suc_telefono = $_POST['suc_telefono'];
 	$suc_eliminado = $_POST['suc_eliminado'];
+	$num_fac_ini = $_POST['num_fac_ini'];		
 	
 	$accion = fnc_varGetPost('accion');
 	$menus = $_POST['menus'];
@@ -16,18 +17,16 @@
 	if($accion=='Actualizar'){
 		mysql_query("SET AUTOCOMMIT=0;", $conexion_mysql); //Desabilita el autocommit
 		mysql_query("BEGIN;", $conexion_mysql); //Inicia la transaccion
-		
-		
-	
+					
 		//Query 1
-		$sql = sprintf('UPDATE sucursal SET suc_nombre=%s, suc_direccion=%s, suc_telefono=%s  WHERE suc_id=%s',//***********
+		$sql = sprintf('UPDATE sucursal SET suc_nombre=%s, suc_direccion=%s, suc_telefono=%s, num_fac_ini=%s  WHERE suc_id=%s',//***********
 		GetSQLValueString($suc_nombre, 'text'),
 		GetSQLValueString($suc_direccion, 'text'),
 		GetSQLValueString($suc_telefono, 'text'),
+		GetSQLValueString($num_fac_ini, 'text'),
 		GetSQLValueString($suc_id, 'int'));
 		$query_1 = mysql_query($sql, $conexion_mysql) or die(mysql_error());
-		
-						
+								
 		//Si no hubo errores COMMIT caso contrario ROLLBACK
 		if($query_1){
 			mysql_query("COMMIT;", $conexion_mysql);
@@ -56,9 +55,7 @@
 		);
 		
 		$query_1 = mysql_query($sql, $conexion_mysql); $error=mysql_error();
-		
-		
-
+				
 		//Si no hubo errores COMMIT caso contrario ROLLBACK
 		if($query_1){
 			mysql_query("COMMIT;", $conexion_mysql);
@@ -82,7 +79,6 @@
 		$sql = sprintf('DELETE FROM sucursal WHERE suc_id=%s', GetSQLValueString($suc_id, 'int'));
 		$query_1 = mysql_query($sql, $conexion_mysql);
 		
-
 		//Si no hubo errores COMMIT caso contrario ROLLBACK
 		if($query_1){
 			mysql_query("COMMIT;", $conexion_mysql);

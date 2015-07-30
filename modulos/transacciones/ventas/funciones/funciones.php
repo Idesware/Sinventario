@@ -42,8 +42,9 @@
   		$RS_cedula = mysql_query($query_cedula, $conexion_mysql) or die(mysql_error());
 		$row_RS_cedula = mysql_fetch_assoc($RS_cedula);		
 		$cli_id = $row_RS_cedula["cli_id"];
-		$query_insert_user = sprintf("INSERT INTO cabecera_ventas (suc_id, cab_ven_total, cab_ven_fecha, cab_ven_usu, cab_ven_ref, cab_ven_subt, cab_ven_iva, cab_ven_des, cab_ven_for_pag, cli_id,emp_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
-                       GetSQLValueString($sucursal, "text"),
+		$query_insert_user = sprintf("INSERT INTO cabecera_ventas (cab_ven_id,suc_id, cab_ven_total, cab_ven_fecha, cab_ven_usu, cab_ven_ref, cab_ven_subt, cab_ven_iva, cab_ven_des, cab_ven_for_pag, cli_id,emp_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
+                       GetSQLValueString($referencia, "text"),
+					   GetSQLValueString($sucursal, "text"),
 					   GetSQLValueString($totcab, "text"),
 					   GetSQLValueString($fecha_actual, "text"),
 					   GetSQLValueString($vendedor, "text"),
@@ -73,7 +74,7 @@
 		$det_pro_id = $row_RS_datos["det_pro_id"];
 		
 			$query_insert_vent_det = sprintf("INSERT INTO detalle_ventas (cab_ven_id, pro_id, det_ven_val, det_ven_can) VALUES (%s, %s, %s, %s)",
-                       GetSQLValueString($id_cab_ventas, "text"),
+                       GetSQLValueString($referencia, "text"),
 					   GetSQLValueString($idpro, "text"),
 					   GetSQLValueString($pre, "text"),
 					   GetSQLValueString($can, "text"));

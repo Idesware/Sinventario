@@ -19,7 +19,7 @@
 	<meta charset="utf-8"></meta>
 	<title><?php echo $accion; ?> sucursal</title>
     <?php include(RUTAp.'jquery/styl-jquery.php'); ?>
-    <?php require_once(RUTAs.'styles/styl-bootstrap.php'); ?>
+    <?php require_once(RUTAs.'styles/styl-bootstrap.php'); ?>    
 </head>
 <body>
 	<?php include(RUTAcom.'menu-principal.php'); ?>
@@ -65,6 +65,12 @@
 						<label class="control-label">Teléfono</label>
 						<div class="controls">
 							<input type="text" class="input-block-level" id="suc_telefono" name="suc_telefono" value="<?php echo $datSuc['suc_telefono']; ?>" placeholder="Número de Teléfono" required>
+						</div>
+					</div>
+                    <div class="control-group">
+						<label class="control-label">Nun. Factura Inicial</label>
+						<div class="controls">
+							<input type="text" class="input-block-level" id="num_fac_ini" name="num_fac_ini" value="<?php echo $datSuc['num_fac_ini']; ?>" placeholder="Número de Factura Inicial" required>
 						</div>
 					</div>
 					

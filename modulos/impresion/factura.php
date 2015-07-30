@@ -7,31 +7,39 @@
   $empleado = fnc_datEmp($id_emp);
   $persona = fnc_datPer($empleado['per_id']);
   $sucursal = fnc_datSuc($empleado['suc_id']);
-
-
-  function date_ame2euro($date=NULL){ if(!$date) $datef=date('d-m-Y');
-  else $datef=date("d-m-Y",strtotime($date)); 
-  return $datef;
-   }
-
+  $fac_fec = $_POST["fec_fac"];
+  $dir_cli = $_POST["dir_cli"];
+  $tel_cli = $_POST["tel_cli"];
+  $ced_cli = $_POST["ced_cli"];
+  $nomcli = $_POST['NOMCLI'];
 ?>
 
 <html>
-<head><title>Comprobante de Venta</title></head>
-<body onload= window.print()>
+<head><title>FACTURA</title></head>
+<link rel="stylesheet" type="text/css" href="formato.css">
+<!--<body onload= window.print()>-->
   <?php $referencia = $_POST['REF'];?>
-  <?php $nomcli = $_POST['NOMCLI'];?>
+  
+ <!--
 <h3>**********<?php echo $sucursal ['suc_nombre'] ?>**********</h3>
 <label>Dir: <?php echo $sucursal ['suc_direccion'] ?></label>
 </div>
 <div>
 Ticket Referencia N* <?php echo $referencia; ?> 
-</div>
-Cliente: <?php echo $nomcli; ?>
-<br>
 <label>Telefono: <?php echo $sucursal ['suc_telefono'] ?></label>
-<br>
-    =======================================
+</div>
+-->
+<p class="p1"><strong>Fecha:</strong><?php echo $fac_fec; ?></p>
+<p class="p2"><strong>Cliente:</strong> <?php echo $nomcli; ?></p>
+<p class="p3"><strong>Direccion:</strong> <?php echo $dir_cli; ?></p>
+<p class="p4"><strong>R.U.C./C.I.:</strong> <?php echo $tel_cli; ?></p>
+<p class="p5"><strong>Telefono:</strong> <?php echo $ced_cli; ?></p>
+<p class="p6">_______________________</p>
+<p class="p7">_______________________</p>
+<p class="p8">FIRMA AUTORIZADA</p>
+<p class="p9">FIRMA CLIENTE</p>
+
+
 
 <?php  
   $sql = sprintf("SELECT cab_ven_subt,cab_ven_iva,cab_ven_des,cab_ven_total,cab_ven_fecha,per_nombre,det_ven_can,det_ven_val,pro_nombre,pvp,per_documento 
@@ -48,17 +56,14 @@ WHERE cab_ven_ref = %s",
   $query = mysql_query($sql, $conexion_mysql) or die(mysql_error());
   $row = mysql_fetch_assoc($query);
   $tot_rows = mysql_num_rows($query);
-  ?>
-    
-          <table style="width: 100%">
-            <caption>Detalle Venta</caption>
-          
+  ?>    
+          <table class="detalle">                     
             <thead>
               <tr>
-                <th style="width:10%">Cantidad</th>
-                <th style="width:44%">Producto</th>
-                <th style="width:21%">Precio U.</th>
-                <th style="width:25%">Total</th>
+                <th style="width:10%">Unidad</th>
+                <th style="width:44%">Cantidad</th>
+                <th style="width:21%">valor un</th>
+                <th style="width:25%">valor total</th>
               </tr>
             </thead>
 
@@ -67,7 +72,7 @@ WHERE cab_ven_ref = %s",
                 <th colspan="4" align="right">TOTAL:<?php echo $row['cab_ven_total']; ?></th>
               </tr>
 		<tr>
-                <th colspan="4" align="center">GRACIAS POR PREFERIRNOS</th>
+                <th colspan="4" align="center"></th>
               </tr>
             </tfoot>
            
@@ -82,9 +87,8 @@ WHERE cab_ven_ref = %s",
               <?php } while ($row = mysql_fetch_assoc($query)); ?>
             </tbody>
           </table>
-          =======================================
-          <br>
-         
+        
+          <br>     
 </body>
 </html>
 

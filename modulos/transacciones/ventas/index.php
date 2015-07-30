@@ -2,6 +2,7 @@
 	if (!isset($_SESSION)) session_start();
 	include('../../../start.php');
 	fnc_autentificacion();
+	unset ($_SESSION["aux"]);
 	$id_user = $_SESSION['id_usuario'];
 	$id_emp = $_SESSION['id_empleado'];
 	$empleado = fnc_datEmp($id_emp);
@@ -20,17 +21,28 @@
 	<meta charset="utf-8">
   <title>Ventas</title>
     <?php include(RUTAp.'jquery/styl-jquery.php'); ?>
-    <?php require_once(RUTAs.'styles/styl-bootstrap.php'); ?>    
+    <?php require_once(RUTAs.'styles/styl-bootstrap.php'); ?>       
 </head>
 <body >
      
-	<?php include(RUTAcom.'menu-principal.php');
+	<?php include(RUTAcom.'menu-principal.php');	
 	fnc_msgGritter();
 	$num_row = fnc_numproago($sucursal['suc_id']); 
 	$sqlref = sprintf("SELECT MAX(cab_ven_id) AS referencia FROM cabecera_ventas");
 	$query = mysql_query($sqlref, $conexion_mysql) or die(mysql_error());
 	$row = mysql_fetch_assoc($query);
-	$ref=$row['referencia']+1;
+	
+	if($row['referencia']==null)
+	{
+		$sqlref1 = sprintf("SELECT num_fac_ini FROM sucursal");
+		$query1 = mysql_query($sqlref1, $conexion_mysql) or die(mysql_error());
+		$row1 = mysql_fetch_assoc($query1);
+		$ref=$row1['num_fac_ini']+1;
+	}
+	else
+	{
+		$ref=$row['referencia']+1;
+	}					
 	?>
 
 	<div class="container">
@@ -38,12 +50,12 @@
         <div align="right">  <strong><input type="button" style="font-style:oblique" align="left" class="btn btn-primary"  name="Otras_Ventas" id="Otras_Ventas" value="RECARGAS EN GENERAL" style="text-shadow:#C00" onClick="recargas()"></strong></div>
 
         
-			<div class="page-header"> <h3 style="color:#36F">Referencia de Venta <span class="label label-success" style="font-size:22px; padding-top:10px; padding-right: 5px; padding-left:5px; padding-bottom:10px"><?php echo ' # '.$ref;?></span> </h3>
+			<div class="page-header"> <h3 style="color:#36F">Factura Número: <span class="label label-success" style="font-size:22px; padding-top:10px; padding-right: 5px; padding-left:5px; padding-bottom:10px"><?php echo ' # '.$ref;?></span> </h3>
 
     			<div class="row-fluid">
                     <div class="span4">
                         <div class="control-group">
-                            <label class="control-label">Cedula/Ruc</label>
+                            <label class="control-label">Cédula/Ruc</label>
                                 <div class="controls">
                                     <input type="text" id="inputcedula" name="inputcedula" enable value="001" onclick = "$('#modalcliente').modal()";>
                                 </div>      
@@ -140,7 +152,7 @@
                   			<div class="control-group">
 								<label class="control-label">Total</label>
 									<div class="controls">
-										<input type="text" class="input-block-level" id="inputtot" name="inputtot" disabled style="height:100px; font-family: Arial; font-size: 40pt; color:red; width:130px;">
+										<input type="text" class="input-block-level" id="inputtot" name="inputtot" disabled style="height:70px; font-family: Arial; font-size: 28pt; color:red; width:130px;">
 
 									</div>
 							</div>
@@ -158,6 +170,7 @@
 				</div>
             	<div class="span4">
             		<input type="button" class="btn btn-primary" name="guardar_Venta" id="guardar_Venta" value="GENERAR FACTURA" onclick="guardarVenta()">
+                    <?php $_SESSION["aux"]=$ref?>
 
         		<input type="button" class="btn btn-primary" name="nueva_venta" id="nueva_venta" value="NUEVA FACTURA" onclick="nuevaVenta()">
         		
@@ -241,13 +254,12 @@
     <input type="hidden" id="rows" value="<?php echo $num_row; ?>">
 	<input type="hidden" id="url_autocomplete" value="<?php echo $RUTAm."transacciones/ventas/funciones/autocomplete_ventas.php"; ?>">
 
-    <input type="hidden" id="Urlnompro" value="<?php echo $RUTAm."transacciones/ventas/funciones/bus_nom_pro.php"; ?>">
-  
-    <input type="hidden" id="url_impresion" value="<?php echo $RUTAm."impresion/factura.php"; ?>">
-
+    <input type="hidden" id="Urlnompro" value="<?php echo $RUTAm."transacciones/ventas/funciones/bus_nom_pro.php"; ?>">     
   
     <input type="hidden" id="vendedor" name="vendedor" value="<?php echo $persona['per_nombre'] ?>">
     <input type="hidden" id="referencia" name="referencia" value="<?php echo $ref ?>">
+    <input type="hidden" id="fec_fac" name="fec_fac" value="<?php echo $fecha_actual ?>">
+
 </body>
 
 </html>
@@ -612,10 +624,12 @@ function guardarVenta() {
 				subtotal: $("#inputsubt").val(),
 				referencia: $("#referencia").val(),
 				cedula: $("#inputcedula").val(),
-				vendedor: $("#inputempleado").val()
+				vendedor: $("#inputempleado").val(),				
 			},
 			success:  function(resultado) {
-				abrirVentanaIMP(resultado);
+				
+				imprimir_factura();				
+				//abrirVentanaIMP(resultado);
 				$("#guardar_Venta").hide();
 			//	$("#agregar_producto").hide();
 				$("#nueva_venta").show();
@@ -869,11 +883,18 @@ focus: function( event, ui ) {
    });
 
 function abrirVentanaIMP(Referencia) {
-	url_impresion=$("#url_impresion").val();
-  var nomcli=$("#inputnombre").val(); 
+  url_impresion=$("#url_impresion").val();
+  var nomcli=$("#inputnombre").val();
+  var fec_fac= $("#fec_fac").val();
+  var dir_cli= $("#inputdireccion").val();
+  var tel_cli= $("#inputtelefono").val();
+  var ced_cli= $("#inputcedula").val();
 
-$.post(url_impresion, { REF: Referencia, NOMCLI: nomcli }, function (result) {
-            WinId = window.open('', 'newwin', 'width=400,height=500');//resolucion de la ventana
+$.post(url_impresion, 
+{ REF: Referencia, NOMCLI: nomcli,fec_fac:fec_fac,dir_cli:dir_cli,tel_cli:tel_cli,ced_cli:ced_cli }, 
+
+function (result) {
+            WinId = window.open('url_impresion', 'newwin', 'width=800,height=900');//resolucion de la ventana
             WinId.document.open();
             WinId.document.write(result);
             WinId.document.close();
@@ -915,6 +936,8 @@ $('#inputproducto').keypress(function(event){
     }
 });
 
-
+function imprimir_factura(){	
+		window.open( "../../impresion/facturaSPDF.php", "Impresion Factura" , "width=800 , height = 600");
+		}
 
 </script>
