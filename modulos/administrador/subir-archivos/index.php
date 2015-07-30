@@ -4,6 +4,7 @@
 	fnc_autentificacion();	
 	$id_emp = $_SESSION['id_empleado'];
 	$id_user = $_SESSION['id_usuario'];
+	$cb_accion= $_POST["accion"];
 ?>
 <!doctype html>
 <html>
@@ -12,16 +13,17 @@
 	<title>Gestión de Usuarios</title>
     <?php include(RUTAp.'jquery/styl-jquery.php'); ?>
     <?php require_once(RUTAs.'styles/styl-bootstrap.php'); ?>
+	
 </head>
 <body>
 	<div class="container">
 		<?php include(RUTAcom.'menu-principal.php');?>
-	    
+<form class="form-horizontal" method="post"  enctype="multipart/form-data" 
+id="subirArchivo">	    
 		<div class="container">
-			<div class="page-header"><h3>SUBIR ARCHIVO</h3></div>
-            <form class="form-horizontal" method="post" action="proveedor.php" enctype="multipart/form-data" id="subirArchivo">
+			<div class="page-header"><h3>SUBIR ARCHIVO</h3></div>           
             <div class="row">
-            	<select name="mi_combobox"> 
+            	<select id="cb_accion" name="cb_accion" onchange="cargar_accion()";> 
 				<option value="proveedor.php">Cliente</option> 
 				<option value="proveedor.php">Proveedor</option> 
                 <option value="producto.php">Producto</option>
@@ -39,3 +41,14 @@
 	</div>
 </body>
 </html>
+<script>
+function cargar_accion()
+{	
+	 var accion= $("#cb_accion").val();
+	 //alert(accion);
+	 
+	 var elemento = document.querySelector('#subirArchivo');
+	 elemento.setAttribute("action='proveedor.php'");
+}
+
+</script>

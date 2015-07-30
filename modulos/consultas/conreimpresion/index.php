@@ -10,7 +10,7 @@
 	$URL_Visita_Ult=basename($_SERVER['REQUEST_URI'], "/");
 	$url_autorizado=fnc_datURLv($URL_Visita_Ult, $id_user);
 	if((basename($url_autorizado['men_link'],"/"))==$URL_Visita_Ult){
-unset ($_SESSION["aux"]);
+$_SESSION["aux"];
 ?>
 
 <!doctype html>
