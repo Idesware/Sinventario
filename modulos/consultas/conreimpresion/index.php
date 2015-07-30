@@ -10,7 +10,6 @@
 	$URL_Visita_Ult=basename($_SERVER['REQUEST_URI'], "/");
 	$url_autorizado=fnc_datURLv($URL_Visita_Ult, $id_user);
 	if((basename($url_autorizado['men_link'],"/"))==$URL_Visita_Ult){
-$_SESSION["aux"];
 ?>
 
 <!doctype html>
@@ -101,7 +100,7 @@ grilla();
                 mtype: 'POST',
                 width: 900,
                 async: false,
-                colNames: ['Referencia', 'Cliente', 'Fecha', 'Total Fac.' ],
+                colNames: ['N. Factura', 'Cliente', 'Fecha', 'Total Fac.' ],
                 colModel: [
 				{ name: 'referencia', index: 'referencia', width: 90, sorttype: 'string', align: "center", frozen: true, sortable: false, hidden: false },
                         { name: 'cliente', index: 'cliente', width: 90, sorttype: 'string', align: "center", frozen: true, sortable: false },
@@ -139,12 +138,13 @@ if(e.which == 13) {
    	 }
 });
    
-function imprimir_factura(){	
+function imprimir_factura()
+{	
 
 var aux = $("#input_num_fact").val();
 
-		window.open( "../../impresion/facturaSPDF.php?referencia=aux", "Impresion Factura" , "width=800 , height = 600");
-		}
+		window.open( "../../impresion/facturaSPDF.php?referencia="+aux, "Impresion Factura" , "width=800 , height = 600");
+	}
 
 </script>
 

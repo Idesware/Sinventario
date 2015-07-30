@@ -9,7 +9,7 @@
 <div class="container">
 	<div class="row">
     	<div class="col-md-2 col-md-offset-5">
-        	<img id="loader" src="../../images/loading.gif"/>
+        	<img id="loader" src="../../../images/loading.gif"/>
             Cargando...
         </div> 
     </div>

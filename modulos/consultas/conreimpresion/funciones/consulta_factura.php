@@ -32,7 +32,7 @@
 	
 		//Consulta que devuelve los registros de una sola pagina
 		$consulta = sprintf("SELECT cab_ven_ref,per_nombre,cab_ven_fecha, cab_ven_total FROM cabecera_ventas  
-		INNER JOIN cliente ON cabecera_ventas.cli_id=cliente.cli_id INNER JOIN persona ON cliente.per_id = persona.per_id WHERE cab_ven_eliminado = 'N'");
+		INNER JOIN cliente ON cabecera_ventas.cli_id=cliente.cli_id INNER JOIN persona ON cliente.per_id = persona.per_id WHERE cab_ven_eliminado = 'N' order by cab_ven_ref desc LIMIT $start, $limit;");
 		$result = mysql_query($consulta, $conexion_mysql) or die(mysql_error());
 	
 	

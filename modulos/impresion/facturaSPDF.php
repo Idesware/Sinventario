@@ -3,10 +3,7 @@
 	include('../../start.php');
 	fnc_autentificacion();
 	ob_start();
-  $referencia=$_SESSION["aux"];
-  $referencia1=$_POST["referencia"];
-	
-	echo $_SESSION["aux"];
+  $referencia=$_GET["referencia"];
 	
 $sql = sprintf("SELECT cab_ven_subt,cab_ven_iva,cab_ven_des,cab_ven_total,cab_ven_fecha,per_nombre,det_ven_can,det_ven_val,pro_nombre,pvp,per_documento,per_direccion1,per_telefono 
 FROM `cabecera_ventas` 

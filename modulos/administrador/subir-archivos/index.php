@@ -16,15 +16,17 @@
 	
 </head>
 <body>
+<?php include(RUTAcom.'menu-principal.php');?>
 	<div class="container">
-		<?php include(RUTAcom.'menu-principal.php');?>
+		
 <form class="form-horizontal" method="post"  enctype="multipart/form-data" 
 id="subirArchivo">	    
 		<div class="container">
 			<div class="page-header"><h3>SUBIR ARCHIVO</h3></div>           
             <div class="row">
             	<select id="cb_accion" name="cb_accion" onchange="cargar_accion()";> 
-				<option value="1">Cliente</option> 
+				<option value="0">Seleccione una opción</option>
+                <option value="1">Cliente</option> 
 				<option value="2">Proveedor</option> 
                 <option value="3">Producto</option>
 				</select> 
@@ -47,6 +49,10 @@ function cargar_accion()
 	 var accion= $("#cb_accion").val();
 	 var elemento = document.querySelector('#subirArchivo');
 	 //alert(accion);
+	 if(accion=="0")
+	 {
+		 alert("Tiene que escoger una Opción");
+	 }
 	 if(accion=="1")
 	 {
 		 elemento.setAttribute("action","cliente.php");

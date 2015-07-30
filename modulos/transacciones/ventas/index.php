@@ -1,8 +1,7 @@
 <?php 
 	if (!isset($_SESSION)) session_start();
 	include('../../../start.php');
-	fnc_autentificacion();
-	unset ($_SESSION["aux"]);
+	fnc_autentificacion();	
 	$id_user = $_SESSION['id_usuario'];
 	$id_emp = $_SESSION['id_empleado'];
 	$empleado = fnc_datEmp($id_emp);
@@ -169,8 +168,7 @@
 						</select>
 				</div>
             	<div class="span4">
-            		<input type="button" class="btn btn-primary" name="guardar_Venta" id="guardar_Venta" value="GENERAR FACTURA" onclick="guardarVenta()">
-                    <?php $_SESSION["aux"]=$ref?>
+            		<input type="button" class="btn btn-primary" name="guardar_Venta" id="guardar_Venta" value="GENERAR FACTURA" onclick="guardarVenta()">                  
 
         		<input type="button" class="btn btn-primary" name="nueva_venta" id="nueva_venta" value="NUEVA FACTURA" onclick="nuevaVenta()">
         		
@@ -936,8 +934,10 @@ $('#inputproducto').keypress(function(event){
     }
 });
 
-function imprimir_factura(){	
-		window.open( "../../impresion/facturaSPDF.php", "Impresion Factura" , "width=800 , height = 600");
-		}
+function imprimir_factura()
+{	
+var aux = $("#referencia").val();
 
+		window.open( "../../impresion/facturaSPDF.php?referencia="+aux, "Impresion Factura" , "width=800 , height = 600");
+	}
 </script>
