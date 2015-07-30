@@ -74,8 +74,7 @@ if (isset($_FILES["archivo"]) && is_uploaded_file($_FILES['archivo']['tmp_name']
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	$sqlValidarProducto = "Select pro_id From producto Where pro_codigo ='$codigo'" ;
 	$queryValidarProducto = mysql_query($sqlValidarProducto, $conexion_mysql) or die(mysql_error());
-	$tot_rows_sqlValidarProducto = mysql_num_rows($queryValidarProducto);
-echo $tot_rows_sqlValidarProducto;	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	$tot_rows_sqlValidarProducto = mysql_num_rows($queryValidarProducto);	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		if($tot_rows_sqlValidarProducto == 0)
 		{
 			
@@ -98,10 +97,10 @@ echo $tot_rows_sqlValidarProducto;	/////////////////////////////////////////////
 				$sqlProducto = "insert into producto(suc_id,unidad_id,cat_id,pro_codigo,pro_serie,pro_nombre,pro_fecha_crea,pro_usuario_crea) values('1','$id_uni','$id_cat','$codigo','$serie','$nombre','$fecha_actual','$nombre_usuario')";
 				mysql_query($sqlProducto, $conexion_mysql) or die(mysql_error());
 				$id_producto=mysql_insert_id();
-				$sqlDetalle = "insert into detalle_producto(pro_id,det_pro_costo,val_gan_pvp,est_iva,met_gan_pvp,pvp) values('$id_producto',costo,valor,paga_iva,metodo,pvp)";
+				$sqlDetalle = "insert into detalle_producto(pro_id,det_pro_costo,val_gan_pvp,est_iva,met_gan_pvp,pvp) values('$id_producto',$costo,$valor,$paga_iva,$metodo,pvp)";
 				mysql_query($sqlDetalle, $conexion_mysql) or die(mysql_error());
 				$id_detalle=mysql_insert_id();
-				$sqlStock = "insert into stock(det_pro_id,stk_cantidad,stk_minimo) values('$id_detalle',stock_cantidad,stock_minimo)";
+				$sqlStock = "insert into stock(det_pro_id,stk_cantidad,stk_minimo) values('$id_detalle',$stock_cantidad,$stock_minimo)";
 				mysql_query($sqlStock, $conexion_mysql) or die(mysql_error());
 			}
 		}
