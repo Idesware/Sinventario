@@ -24,9 +24,9 @@ id="subirArchivo">
 			<div class="page-header"><h3>SUBIR ARCHIVO</h3></div>           
             <div class="row">
             	<select id="cb_accion" name="cb_accion" onchange="cargar_accion()";> 
-				<option value="proveedor.php">Cliente</option> 
-				<option value="proveedor.php">Proveedor</option> 
-                <option value="producto.php">Producto</option>
+				<option value="1">Cliente</option> 
+				<option value="2">Proveedor</option> 
+                <option value="3">Producto</option>
 				</select> 
             </div>
             <div class="row">
@@ -45,10 +45,20 @@ id="subirArchivo">
 function cargar_accion()
 {	
 	 var accion= $("#cb_accion").val();
-	 //alert(accion);
-	 
 	 var elemento = document.querySelector('#subirArchivo');
-	 elemento.setAttribute("action='proveedor.php'");
+	 //alert(accion);
+	 if(accion=="1")
+	 {
+		 elemento.setAttribute("action","cliente.php");
+	 }
+	 if(accion=="2")
+	 {
+		 elemento.setAttribute("action","proveedor.php");
+	 }
+	 if(accion=="3")
+	 {
+		 elemento.setAttribute("action","producto.php");
+	 }
 }
 
 </script>
