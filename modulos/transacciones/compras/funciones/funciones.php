@@ -12,7 +12,7 @@
 			
 			$query=sprintf("SELECT pro_id FROM producto WHERE pro_codigo = %s AND suc_id = %s AND pro_eliminado = 'N'",
 			GetSQLValueString($pro_cod, "text"),
-			GetSQLValueString($suc_id, "int"));   
+			GetSQLValueString($suc_id, "int"));
 			
 			$RS = mysql_query($query, $conexion_mysql) or die(mysql_error());
 			$row_RS_datos = mysql_fetch_assoc($RS);		
@@ -57,6 +57,7 @@
 		$numfac = $_POST['numfac'];
 		$feccom = $_POST['feccom'];
 		$desc = $_POST['desc'];
+		$serie = $_POST['serie'];
 		
 		
 		$queryper=sprintf("SELECT per_id FROM persona WHERE per_documento = %s",
@@ -70,7 +71,7 @@
     	GetSQLValueString($per_id, "text"),
 		GetSQLValueString($nompro, "text"));  
   		$RSpro = mysql_query($querypro, $conexion_mysql) or die(mysql_error());
-		$row_RS_datos_pro = mysql_fetch_assoc($RSpro);		
+		$row_RS_datos_pro = mysql_fetch_assoc($RSpro);
 		$prov_id = $row_RS_datos_pro["prov_id"];
 		
 		$query_insert_user = sprintf("INSERT INTO cabecera_compras (suc_id, prov_id, cab_com_iva, cab_com_total, cab_com_fecha, cab_com_usu, cab_com_fac, cab_com_fec_emi, cab_com_des) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)",
@@ -127,6 +128,40 @@
                        GetSQLValueString($stk_cantidad_final, "text"),
 					   GetSQLValueString($det_pro_id, "text"));
 		$query_3 = mysql_query($query_update_stk, $conexion_mysql) or die(mysql_error());
+		
+		
+		$query4=sprintf("SELECT ser_id FROM serie INNER JOIN detalle_producto on serie.det_pro_id = detalle_producto.det_pro_id WHERE ser_codigo = %s AND ser_eliminado = 'N' AND detalle_producto.det_pro_id = %s",
+		GetSQLValueString($serie, "text"),
+    	GetSQLValueString($det_pro_id, "text"));
+  		$RS4 = mysql_query($query4, $conexion_mysql) or die(mysql_error());
+		$num_ser = mysql_num_rows($RS4);
+		if($num_ser > 0)
+		{
+			$query_select_serie=sprintf("SELECT * FROM serie WHERE det_pro_id = %s AND ser_eliminado = %s AND ser_codigo = %s",
+    	GetSQLValueString($det_pro_id, "int"),
+		GetSQLValueString('N', "text"),
+		GetSQLValueString($serie, "text"));
+  		$RS_serie = mysql_query($query_select_serie, $conexion_mysql) or die(mysql_error());
+		$row_RS_datos_serie = mysql_fetch_assoc($RS_serie);
+		$ser_cantidad = $row_RS_datos_serie["ser_cantidad"];
+		echo $query_select_serie;
+		$ser_cantidad_final = $ser_cantidad + $can;
+		echo $ser_cantidad_final;
+			$query_update_serie = sprintf("UPDATE serie set ser_cantidad = %s WHERE ser_codigo = %s AND ser_eliminado = 'N' AND det_pro_id = %s",
+                       GetSQLValueString($ser_cantidad_final, "text"),
+					   GetSQLValueString($serie, "text"),
+					   GetSQLValueString($det_pro_id, "text"));
+		mysql_query($query_update_serie, $conexion_mysql) or die(mysql_error());
+		}
+		else
+		{
+			$query_insert_serie = sprintf("INSERT INTO serie(det_pro_id, ser_codigo, ser_cantidad, ser_eliminado) VALUES (%s, %s, %s, %s)",
+                       GetSQLValueString($det_pro_id, "int"),
+					   GetSQLValueString($serie, "text"),
+					   GetSQLValueString($can, "text"),
+					   GetSQLValueString('N', "text"));
+			mysql_query($query_insert_serie, $conexion_mysql) or die(mysql_error());
+		}
 		
 		//Calcula nuevo costo
 		$det_pro_costo=$pre;

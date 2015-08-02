@@ -545,15 +545,31 @@ else
 					var mydata = [
                      { idpro: datos['pro_id'], producto: $("#inputproducto").val(), serie:datos['pro_serie'], nombreproducto: $("#inputdetalle").val(), cantidad: $("#inputcantidad").val(), precio: precunit, total: total, iva: ivasubt, aplicaiva: datos['est_iva'], subtotal: subtotal }
         			];
-
-            for (var i = 0; i <= mydata.length; i++) {
+           	
+			
+			
+			
+			
+			
+			
+			
+		var ids = jQuery("#list").jqGrid('getDataIDs');
+ 		if (ids.length <= 10)
+ 		{
+											   
+		    for (var i = 0; i <= mydata.length; i++) 
+			{
                 jQuery("#list").jqGrid('addRowData', u, mydata[i]);
                 u++;
             };
 			calculatotales();
 				}
+ 		else
+ 		{
+ 			alert('Solo se puede agregar hasta 7 items');
+		 }																																																				
 				}
-
+				}
 			}
 			});
 			}

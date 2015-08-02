@@ -91,7 +91,7 @@
 
 					<div class="span2">
          				<div class="control-group">
-         					<label class="control-label">Numero de Factura</label>
+         					<label class="control-label">Número de Factura</label>
 								<div class="controls">
 									<input type="text" id="inputfact_pro" name="inputfact_pro"  required>
                     			</div>      
@@ -128,7 +128,16 @@
 						</div>
     				</div>
 				</div>
-
+				<div class="row-fluid">
+                	<div class="span4">
+						<div class="control-group">
+							<label class="control-label">Serie</label>
+								<div class="controls">
+									<input type="text" class="input-block-level" id="inputserie" name="inputserie">
+								</div>
+						</div>
+    				</div>
+                </div>
 			</div>		
 			
 			<div class="control-group well span10"> <!-- Contenedor Detalle Compra -->
@@ -371,14 +380,14 @@ $("#inputfecha_com").datepicker({
 				datos = JSON.parse(resultado);
 				
 				var res = verificarepuesto(datos['pro_id']);
-				if(res == true)
-				{
-					vex.dialog.alert ('Ya Esta Agregado El Repuesto!');
-				}
-				else
-				{
+				//if(res == true)
+				//{
+				//	vex.dialog.alert ('Ya Esta Agregado El Repuesto!');
+				//}
+				//else
+				//{
 				var mydata = [
-                     { idpro: datos['pro_id'], producto: $("#inputproducto").val(), cantidad: $("#inputcantidad").val(), precio: 0, total: 0, iva: 0, subtotal: 0, nombreproducto: $("#inputdetalle").val() }
+                     { idpro: datos['pro_id'], producto: $("#inputproducto").val(), cantidad: $("#inputcantidad").val(), serie: $("#inputserie").val(), precio: 0, total: 0, iva: 0, subtotal: 0, nombreproducto: $("#inputdetalle").val() }
         ];
 
             for (var i = 0; i <= mydata.length; i++) {
@@ -386,7 +395,7 @@ $("#inputfecha_com").datepicker({
                 u++;
             };
 			calculatotales();
-				}
+				//}
 				}
 			},
 			});
@@ -419,6 +428,7 @@ function guardarCompra() {
 			feccom: $("#inputfecha_com").val(),
 			desc: $("#inputdescu").val(),
 			nompro: $("#inputprove").val(),
+			serie: $("#inputserie").val(),
 		},
 		success:  function(resultado) {
 			vex.dialog.alert (resultado);

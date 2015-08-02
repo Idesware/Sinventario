@@ -36,7 +36,7 @@
                 </ul>
 			</div>
             <div class="span4">
-            	<a href="<?php echo $RUTAm; ?>administrador/sucursales/form.php" class="btn btn-primary btn-large btn-block"><strong> NUEVA SUCURSAL</strong></a>
+            	<!--<a href="<?php echo $RUTAm; ?>administrador/sucursales/form.php" class="btn btn-primary btn-large btn-block"><strong> NUEVA SUCURSAL</strong></a>-->
             </div>
 		</div>
 		<div class="portlet-body">

@@ -44,31 +44,32 @@ if ($tot_rows > 0)
               <tbody>
                 <tr>
                   <td>
-                    <input type="text" class="form-control" id="nom_empr" placeholder="Nombre Empresa" required>
+                    <input type="text" class="form-control" id="nom_empr" placeholder="Nombre Empresa" required maxlength="60">
                   </td>
                   <td>
-                    <input type="text" class="form-control" id="nom_admin" placeholder="Nombre" required>
+                    <input type="text" class="form-control" id="nom_admin" placeholder="Nombre" required maxlength="60">
                   </td>
                   <td>
-                    <input type="text" class="form-control" id="email_admin" placeholder="E-mail" required>
+                    <input type="email" class="form-control" id="email_admin" placeholder="E-mail" required>
                   </td>
                 </tr>
                 <tr>
                   <td>
-                    <input type="text" class="form-control" id="dir_empr" placeholder="Direccion Empresa" required>
+                    <input type="text" class="form-control" id="dir_empr" placeholder="Direccion Empresa" required maxlength="60">
                   </td>
-                  <td><input type="text" class="form-control" id="ced_admin" placeholder="Cedula" required></td>
-                  <td><input type="text" class="form-control" id="nom_usu" placeholder="Nombre Usuario" required></td>
+                  <td><input type="text" class="form-control" id="ced_admin" placeholder="Cedula" required maxlength="20"></td>
+                  <td><input type="text" class="form-control" id="nom_usu" placeholder="Nombre Usuario" required maxlength="60"></td>
                 </tr>
                 <tr>
-                  <td><input type="text" class="form-control" id="tel_empr" placeholder="Telefono Empresa" required/></td>
-                  <td><input type="text" class="form-control" id="dir_admin" placeholder="Direccion" required></td>
-                  <td><input type="password" class="form-control" id="pass_usu" placeholder="Password Usuario" required></td>
+                  <td><input type="text" class="form-control" id="tel_empr" placeholder="Telefono Empresa" required maxlength="10" 
+                  onKeyPress="return soloNumeros(event)"/></td>
+                  <td><input type="text" class="form-control" id="dir_admin" placeholder="Direccion" required maxlength="60"></td>
+                  <td><input type="password" class="form-control" id="pass_usu" placeholder="Password Usuario" required maxlength="10"></td>
                 </tr>
                 <tr>
                   <td></td>
-                  <td><input type="text" class="form-control" id="tel_admin" placeholder="Telefono" required/></td>
-                  <td><input type="password" class="form-control" id="con_pass_usu" placeholder="Confirmar Password" required onkeyup="verificar(this.value);"></td>
+                  <td><input type="text" class="form-control" id="tel_admin" placeholder="Telefono" required maxlength="10" onkeyup="return soloNumeros(event)"/></td>
+                  <td><input type="password" class="form-control" id="con_pass_usu" placeholder="Confirmar Password" required onkeyup="verificar(this.value);" maxlength="10"></td>
                 </tr>                
               </tbody>
             </table>
@@ -122,5 +123,11 @@ function guardar_conf()
         }
       });
     }
+	
+	function soloNumeros(e)
+{
+var key = window.Event ? e.which : e.keyCode
+return ((key >= 48 && key <= 57) || (key==8))
+}
 
 </script>

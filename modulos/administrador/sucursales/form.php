@@ -37,9 +37,9 @@
                 </ul>
 			</div>
             <div class="span4">
-            	<?php if($datSuc){ ?>
+            	<!--<?php if($datSuc){ ?>
             	<a href="<?php echo $RUTAm; ?>administrador/usuarios/form.php" class="btn btn-primary btn-large btn-block"><strong> NUEVA SUCURSAL</strong></a>
-                <?php } ?>
+                <?php } ?>-->
             </div> 
 			
 		</div>

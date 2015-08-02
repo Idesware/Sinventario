@@ -104,17 +104,6 @@
                 </td>
                 <td style="padding-left:10px">
                 </td>
-              </tr>                            
-              <tr >
-                <td style="padding-left:10px">
-                	<label class="control-label">Serie</label>
-                </td>
-                <td style="padding-left:10px">
-					<input type="text" id="inputSer" name="inputSer" placeholder="Serie" value="<?php echo $datPro['pro_serie']; ?>" required>
-
-                </td>
-                <td style="padding-left:10px">
-                </td>
               </tr>
                                                                 
               <tr >
@@ -170,12 +159,7 @@
                         <input type="hidden" id="empleado" name="empleado" value="<?php echo $empleado; ?>">
                         <input type="hidden" id="input_categoria_codigo" name="input_categoria_codigo">
                         <input type="hidden" id="nombre_usuario" name="nombre_usuario" value="<?php echo $nombre_usuario; ?>">
-
-                      
-
-                        <input type="hidden" name="pro_id" id="pro_id" value="<?php echo $pro_id; ?>">
-                        
-                        <a id="btn_guardar" class="btn btn-success" onClick="refrescar()">refrescar</a>
+                        <input type="hidden" name="pro_id" id="pro_id" value="<?php echo $pro_id; ?>">                                                
 					</div>
 				</form>
 			</div>
@@ -206,12 +190,4 @@ $(document).on('ready', function(){
 				autoFocus: true
 			});
 		});
-
-
-function refrescar() 
-{    	
-		$("#div_unidad").load("form.php"); 
-}
-
-
 </script>
