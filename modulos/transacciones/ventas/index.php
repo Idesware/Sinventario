@@ -160,14 +160,30 @@
         		</div>
      		</div>
 			<div class="row-fluid">
-        		<div class="span5">
+        		<div class="span3">
         			<label class="control-label">Forma de Pago</label>
         				<select name="Pagos" id="Pagos">
         					<option value="0">Contado</option>
 							<option value="1">Credito</option>
+							<option value="2">Tarjeta de Credito</option>
+							<option value="3">Cheque</option>
 						</select>
 				</div>
-            	<div class="span4">
+
+				<div class="span2">
+					<label class="control-label">Detalle de Pago</label>
+            		<input type="text" class="input-block-level" id="banco" name="banco" placeholder="Ingrese el Banco";">
+            		<input type="text" class="input-block-level" id="cta" name="cta" placeholder="ingrese el # de cuenta";">	
+            		
+            	</div>
+
+
+
+
+
+
+
+            	<div class="span3">
             		<input type="button" class="btn btn-primary" name="guardar_Venta" id="guardar_Venta" value="GENERAR FACTURA" onclick="guardarVenta()">                  
 
         		<input type="button" class="btn btn-primary" name="nueva_venta" id="nueva_venta" value="NUEVA FACTURA" onclick="nuevaVenta()">
@@ -179,7 +195,14 @@
         			<label class="control-label">Vendedor</label>
         			<?php 
                     fnc_listEmpleados('emp_id','per_nombre', 'persona', 'input-block-level', 'inputempleado', 'autofocus required');?>
-			</div>	            		                                     
+			</div>	
+
+
+
+
+
+
+
 		</div>
 	</div>
     <!-- Modal -->
@@ -617,7 +640,7 @@ function guardarVenta() {
 	if(num > 0)
 		{
 			var condPago=$("#Pagos").val();
-			if(condPago==0){
+			if(condPago!=1){
 			var url = $("#Url").val();
 			var accion = 'GUARDAR';
 			var gridData = jQuery("#list").getRowData();
@@ -638,7 +661,9 @@ function guardarVenta() {
 				subtotal: $("#inputsubt").val(),
 				referencia: $("#referencia").val(),
 				cedula: $("#inputcedula").val(),
-				vendedor: $("#inputempleado").val(),				
+				vendedor: $("#inputempleado").val(),
+				banco: $("#banco").val(),
+				cta: $("#cta").val(),				
 			},
 			success:  function(resultado) {
 				

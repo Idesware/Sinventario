@@ -27,14 +27,24 @@
 		$referencia = $_POST['referencia'];
 		$cedula = $_POST['cedula'];
 		$vendedor = $_POST['vendedor'];
+		$banco = $_POST['banco'];
+		$cta = $_POST['cta'];
 		
 		if($condPago == 0)
 		{
 			$tipo_pago = "C";
 		}
-		else
+		if($condPago==1)
 		{
 			$tipo_pago = "D";
+		}
+		if($condPago==2)
+		{
+			$tipo_pago = "T";
+		}
+		if($condPago==3)
+		{
+			$tipo_pago = "Ch";
 		}
 		
 		$query_cedula=sprintf("SELECT cli_id FROM persona INNER JOIN cliente ON persona.per_id = cliente.per_id WHERE per_documento = %s",
@@ -96,7 +106,7 @@
 		
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		}
-		if($condPago==0){//VENTA A CONTADO
+		if(($condPago==0)||($condPago==2)||($condPago==3)){//VENTA A CONTADO
 		$querycaja=sprintf("SELECT caj_valor FROM caja WHERE suc_id = %s AND caj_eliminado = 'N'",
     	GetSQLValueString($sucursal, "text")); 
   		$RScaja = mysql_query($querycaja, $conexion_mysql) or die(mysql_error());
@@ -118,6 +128,35 @@
 					   GetSQLValueString($fecha_actual, "text"),
 					   GetSQLValueString($vendedor, "text"));
 		$querymov = mysql_query($query_insert_mov, $conexion_mysql) or die(mysql_error());
+
+	//ingreso el pago en la base de datos//////	
+	// estado pago de contado con cheque y con tarjeta de credito es "P"
+		$query_insert_pago = sprintf("INSERT INTO pagos (usr_id, cab_ven_id, pag_tot, pag_abo, pag_sal,pag_fec,pag_estado) 
+									VALUES (%s, %s, %s, %s, %s, %s, %s)",
+                       GetSQLValueString($id_user, "text"),
+					   GetSQLValueString($referencia, "text"),
+					   GetSQLValueString($totcab, "text"),
+					   GetSQLValueString(0, "text"),
+					   GetSQLValueString(0, "text"),
+					   GetSQLValueString($fecha_actual, "text"),
+					   GetSQLValueString(P, "text"));
+		$querypag = mysql_query($query_insert_pago, $conexion_mysql) or die(mysql_error());
+		$id_pag=mysql_insert_id();
+
+		$query_insert_det_pago = sprintf("INSERT INTO det_pagos (pag_id,tip_pago, banco,cuenta, suc_id) 
+									VALUES (%s, %s, %s, %s, %s)",
+                       GetSQLValueString($id_pag, "int"),
+					   GetSQLValueString($tipo_pago, "text"),					   
+					   GetSQLValueString($banco, "text"),
+					    GetSQLValueString($cta, "text"),
+					   GetSQLValueString(1, "text"));
+		$querydetpag = mysql_query($query_insert_det_pago, $conexion_mysql) or die(mysql_error());		
+
+
+
+
+
+
 		}
 		echo $referencia;
 	}
