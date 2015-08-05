@@ -144,9 +144,9 @@
   		$RS_serie = mysql_query($query_select_serie, $conexion_mysql) or die(mysql_error());
 		$row_RS_datos_serie = mysql_fetch_assoc($RS_serie);
 		$ser_cantidad = $row_RS_datos_serie["ser_cantidad"];
-		echo $query_select_serie;
+		//echo $query_select_serie;
 		$ser_cantidad_final = $ser_cantidad + $can;
-		echo $ser_cantidad_final;
+		//echo $ser_cantidad_final;
 			$query_update_serie = sprintf("UPDATE serie set ser_cantidad = %s WHERE ser_codigo = %s AND ser_eliminado = 'N' AND det_pro_id = %s",
                        GetSQLValueString($ser_cantidad_final, "text"),
 					   GetSQLValueString($serie, "text"),
