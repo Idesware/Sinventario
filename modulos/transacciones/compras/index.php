@@ -405,42 +405,47 @@ function guardarCompra() {
 	//var myIDs = $("#list").jqGrid('getDataIDs');
 	//var a = jQuery("#list").getDataIDs().length;
 	var num = jQuery("#list").jqGrid('getGridParam', 'records');
-	
-	if(num > 0)
+	if($("#inputfact_pro").val() != "")
 	{
-		var url = $("#Url").val();
-		var accion = 'GUARDAR';
-		var gridData = jQuery("#list").getRowData();
-		var postData = JSON.stringify(gridData);
-		$.ajax({
-		url: url,
-		type: "POST",
-		async: false,
-		data: {
-			jsarr: postData,
-			accion: accion,
-			sucursal: $("#id_suc").val(),
-			usuario: $("#usuario").val(),
-			totalcab: $("#inputtot").val(),
-			totiva: $("#inputiva").val(),
-			rucpro: $("#inputruc").val(),
-			numfac: $("#inputfact_pro").val(),
-			feccom: $("#inputfecha_com").val(),
-			desc: $("#inputdescu").val(),
-			nompro: $("#inputprove").val(),
-			serie: $("#inputserie").val(),
-		},
-		success:  function(resultado) {
-			vex.dialog.alert (resultado);
-			$("#guardar_Compra").hide();
-			$("#agregar_producto").hide();
-			$("#nueva_compra").show();
-		},
-		});
+		if(num > 0)
+		{
+			var url = $("#Url").val();
+			var accion = 'GUARDAR';
+			var gridData = jQuery("#list").getRowData();
+			var postData = JSON.stringify(gridData);
+			$.ajax({
+			url: url,
+			type: "POST",
+			async: false,
+			data: {
+				jsarr: postData,
+				accion: accion,
+				sucursal: $("#id_suc").val(),
+				usuario: $("#usuario").val(),
+				totalcab: $("#inputtot").val(),
+				totiva: $("#inputiva").val(),
+				rucpro: $("#inputruc").val(),
+				numfac: $("#inputfact_pro").val(),
+				feccom: $("#inputfecha_com").val(),
+				desc: $("#inputdescu").val(),
+				nompro: $("#inputprove").val(),
+			},
+			success:  function(resultado) {
+				vex.dialog.alert (resultado);
+				$("#guardar_Compra").hide();
+				$("#agregar_producto").hide();
+				$("#nueva_compra").show();
+			},
+			});
+		}
+		else
+		{
+			vex.dialog.alert ('DEBE AGREGAR PRODUCTOS PARA REALIZAR LA COMPRA!');
+		}
 	}
 	else
 	{
-		vex.dialog.alert ('DEBE AGREGAR PRODUCTOS PARA REALIZAR LA COMPRA!');
+		vex.dialog.alert ('DEBE LLENAR EL NÚMERO DE FACTURA!');
 	}
 }
 

@@ -57,7 +57,6 @@
 		$numfac = $_POST['numfac'];
 		$feccom = $_POST['feccom'];
 		$desc = $_POST['desc'];
-		$serie = $_POST['serie'];
 		
 		
 		$queryper=sprintf("SELECT per_id FROM persona WHERE per_documento = %s",
@@ -96,6 +95,7 @@
 			$iva = $value->iva;
 			$tot = $value->total;
 			$idpro = $value->idpro;
+			$serie = $value->serie;
 
 			
 			$query=sprintf("SELECT * FROM detalle_producto WHERE pro_id = %s AND det_pro_eliminado = 'N'",
