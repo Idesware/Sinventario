@@ -76,6 +76,7 @@
 			$pre = $value->precio;
 			$tot = $value->total;
 			$idpro = $value->idpro;
+			$serie = $value->serie;
 			
 			$query=sprintf("SELECT * FROM detalle_producto WHERE pro_id = %s AND det_pro_eliminado = 'N'",
     	GetSQLValueString($idpro, "int"));  
@@ -103,6 +104,18 @@
                        GetSQLValueString($stk_cantidad_final, "text"),
 					   GetSQLValueString($det_pro_id, "text"));
 		$query_3 = mysql_query($query_update_stk, $conexion_mysql) or die(mysql_error());
+		
+		
+		$query4=sprintf("SELECT * FROM serie WHERE det_pro_id = %s AND ser_eliminado = 'N'",
+    	GetSQLValueString($det_pro_id, "text"));
+  		$RS4 = mysql_query($query4, $conexion_mysql) or die(mysql_error());
+		$row_RS_datos4 = mysql_fetch_assoc($RS4);		
+		$stk_cantidad_serie = $row_RS_datos4["ser_cantidad"];
+		$stk_cantidad_final_serie = $stk_cantidad_serie - $can;
+		$query_update_ser = sprintf("UPDATE serie set ser_cantidad = %s WHERE det_pro_id = %s AND ser_eliminado = 'N'",
+                       GetSQLValueString($stk_cantidad_final_serie, "text"),
+					   GetSQLValueString($det_pro_id, "int"));
+		mysql_query($query_update_ser, $conexion_mysql) or die(mysql_error());
 		
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		}

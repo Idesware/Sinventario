@@ -14,7 +14,7 @@
 	if((basename($url_autorizado['men_link'],"/"))==$URL_Visita_Ult){
 ?>
 <script type="text/javascript">
-	Shadowbox.init();
+	//Shadowbox.init();
 </script>
 
 <!doctype html>
@@ -86,7 +86,7 @@
     			<div class="row-fluid">
          			<div class="span8">
          				<div class="control-group">
-							<label class="control-label">Direccion</label>
+							<label class="control-label">Dirección</label>
 								<div class="controls">
 									<input type="text" id="inputdireccion" name="inputdireccion" enable style="width:400px;" enable value="Principal" required>
                 </div>      
@@ -97,7 +97,7 @@
          					<label class="control-label">Telefono</label>
 								<div class="controls">
 									<input type="text" id="inputtelefono" name="inputtelefono" enable value="000-000" required>
-                    			</div>      
+                    			</div>
 						</div>
          			</div>
 				</div>
@@ -110,7 +110,7 @@
 									<a href="../ventas/listar_series.php?det_pro=<?php echo $row_RS_cta_pend['pac_cod']; ?>" rel="shadowbox;width=600;height=400" title="Factura" id="factura"><i class="icon-th-list"></i></a>
 								</div>
 						</div>
-    				</div>  
+    				</div>
     				<div class="span6">
     					<div class="control-group">
         					<label class="control-label">Detalle</label>
@@ -129,6 +129,17 @@
     				</div>
 				</div>
     		</div>
+            <div class="row-fluid">
+                	<div class="span4">
+						<div class="control-group">
+							<label class="control-label">Serie</label>
+								<div class="controls">
+									<input type="text" class="input-block-level" id="inputserie" name="inputserie">
+								</div>
+						</div>
+    				</div>
+                </div>
+           </div>
     		<div class="control-group well span10">
         		<div class="row-fluid">
     				<div class="span8">
@@ -576,7 +587,7 @@ else
 					var total = (parseFloat(subtotal) + parseFloat(ivasubt)).toFixed(2);
 
 					var mydata = [
-                     { idpro: datos['pro_id'], producto: $("#inputproducto").val(), serie:datos['pro_serie'], nombreproducto: $("#inputdetalle").val(), cantidad: $("#inputcantidad").val(), precio: precunit, total: total, iva: ivasubt, aplicaiva: datos['est_iva'], subtotal: subtotal }
+                     { idpro: datos['pro_id'], producto: $("#inputproducto").val(), serie:datos['pro_serie'], nombreproducto: $("#inputdetalle").val(), cantidad: $("#inputcantidad").val(), precio: precunit, total: total, iva: ivasubt, aplicaiva: datos['est_iva'], subtotal: subtotal, serie: $("#inputserie").val() }
         			];
            																				
 		var ids = jQuery("#list").jqGrid('getDataIDs');
@@ -915,9 +926,14 @@ function verificarcaja(){
 $( "#inputproducto" ).autocomplete({
 source: $("#url_autocomplete").val() ,//availableTags,
 select: function( event, ui ) {
+	
+var elem = ui.item.code.split('-');
+var prod = elem[0];
+var seri = elem[1];
 
-$("#inputproducto").val(ui.item.code);
-$("#inputdetalle").val(ui.item.label);
+$("#inputproducto").val(prod);
+$("#inputserie").val(seri);
+$("#inputdetalle").val(prod);
 },
 focus: function( event, ui ) {
 
