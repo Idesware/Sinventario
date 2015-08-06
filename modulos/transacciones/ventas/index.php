@@ -13,15 +13,21 @@
 	$url_autorizado=fnc_datURLv($URL_Visita_Ult, $id_user);
 	if((basename($url_autorizado['men_link'],"/"))==$URL_Visita_Ult){
 ?>
+<script type="text/javascript">
+	Shadowbox.init();
+</script>
 
 <!doctype html>
 <html>
 <head>
 	<meta charset="utf-8">
-  <title>Ventas</title>
+  	<title>Ventas</title>
     <?php include(RUTAp.'jquery/styl-jquery.php'); ?>
-    <?php require_once(RUTAs.'styles/styl-bootstrap.php'); ?>       
+    <?php require_once(RUTAs.'styles/styl-bootstrap.php'); ?> 
+    <link rel="stylesheet" href="../../../system/funciones/shadowbox/shadowbox.css" type="text/css" media="screen" />
+	<script type="text/javascript" src="../../../system/funciones/shadowbox/shadowbox.js"></script>
 </head>
+    
 <body >
      
 	<?php include(RUTAcom.'menu-principal.php');	
@@ -101,6 +107,7 @@
 							<label class="control-label">Producto</label>
 								<div class="controls">
 									<input type="text" class="input-block-level" id="inputproducto" name="inputproducto" placeholder="Buscar Producto"  required>
+									<a href="../ventas/listar_series.php?det_pro=<?php echo $row_RS_cta_pend['pac_cod']; ?>" rel="shadowbox;width=600;height=400" title="Factura" id="factura"><i class="icon-th-list"></i></a>
 								</div>
 						</div>
     				</div>  
@@ -292,6 +299,9 @@
 			header("Location: ".$RUTAm);
 			}?>
 <script type="text/javascript">
+
+
+
 var u = 0;
 var sumtotal = 0;
 var sumsubt = 0;
