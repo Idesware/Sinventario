@@ -319,9 +319,9 @@ else
 				{ name: 'idpro', index: 'idpro', width: 90, sorttype: 'string', align: "center", frozen: true, sortable: false, hidden: true },
                         { name: 'producto', index: 'producto', width: 90, sorttype: 'string', align: "center", frozen: true, sortable: false, hidden: true },
 						{ name: 'nombreproducto', index: 'nombreproducto', width: 90, sorttype: 'string', align: "center", frozen: true, sortable: false },
-						{ name: 'serie', index: 'serie', width: 90, sorttype: 'string', align: "center", frozen: true, sortable: false },
+						{ name: 'serie', index: 'serie', width: 90, sorttype: 'string', align: "center", frozen: true, sortable: false, editable:true },
                         { name: 'cantidad', index: 'cantidad', width: 90, sorttype: 'string', align: "center", frozen: true, sortable: false, editable: false, editrules: { number: true }, editoptions: { dataInit: function (elem) { $(elem).bind("keypress", function (e) { return soloLetrasB(e) }) } } },
-						{ name: 'precio', index: 'precio', width: 90, sorttype: 'string', align: "center", frozen: true, sortable: false, editable: false, editrules: { number: true }, editoptions: { dataInit: function (elem) { $(elem).bind("keypress", function (e) { return soloLetrasB(e) }) } } },
+						{ name: 'precio', index: 'precio', width: 90, sorttype: 'string', align: "center", frozen: true, sortable: false, editable: true, editrules: { number: true }, editoptions: { dataInit: function (elem) { $(elem).bind("keypress", function (e) { return soloLetrasB(e) }) } } },
 						{ name: 'subtotal', index: 'subtotal', width: 90, sorttype: 'string', align: "center", frozen: true, sortable: false },
 						{ name: 'iva', index: 'iva', width: 90, sorttype: 'string', align: "center", frozen: true, sortable: false },
 						{ name: 'total', index: 'total', width: 90, sorttype: 'string', align: "center", frozen: true, sortable: false },
@@ -568,14 +568,7 @@ else
 					var mydata = [
                      { idpro: datos['pro_id'], producto: $("#inputproducto").val(), serie:datos['pro_serie'], nombreproducto: $("#inputdetalle").val(), cantidad: $("#inputcantidad").val(), precio: precunit, total: total, iva: ivasubt, aplicaiva: datos['est_iva'], subtotal: subtotal }
         			];
-           	
-			
-			
-			
-			
-			
-			
-			
+           																				
 		var ids = jQuery("#list").jqGrid('getDataIDs');
  		if (ids.length <= 10)
  		{
