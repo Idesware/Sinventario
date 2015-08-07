@@ -13,9 +13,6 @@
 	$url_autorizado=fnc_datURLv($URL_Visita_Ult, $id_user);
 	if((basename($url_autorizado['men_link'],"/"))==$URL_Visita_Ult){
 ?>
-<script type="text/javascript">
-	//Shadowbox.init();
-</script>
 
 <!doctype html>
 <html>
@@ -23,9 +20,7 @@
 	<meta charset="utf-8">
   	<title>Ventas</title>
     <?php include(RUTAp.'jquery/styl-jquery.php'); ?>
-    <?php require_once(RUTAs.'styles/styl-bootstrap.php'); ?> 
-    <link rel="stylesheet" href="../../../system/funciones/shadowbox/shadowbox.css" type="text/css" media="screen" />
-	<script type="text/javascript" src="../../../system/funciones/shadowbox/shadowbox.js"></script>
+    <?php require_once(RUTAs.'styles/styl-bootstrap.php'); ?>     
 </head>
     
 <body >
@@ -107,7 +102,7 @@
 							<label class="control-label">Producto</label>
 								<div class="controls">
 									<input type="text" class="input-block-level" id="inputproducto" name="inputproducto" placeholder="Buscar Producto"  required>
-									<a href="../ventas/listar_series.php?det_pro=<?php echo $row_RS_cta_pend['pac_cod']; ?>" rel="shadowbox;width=600;height=400" title="Factura" id="factura"><i class="icon-th-list"></i></a>
+									
 								</div>
 						</div>
     				</div>
@@ -129,16 +124,7 @@
     				</div>
 				</div>
     		</div>
-            <div class="row-fluid">
-                	<div class="span4">
-						<div class="control-group">
-							<label class="control-label">Serie</label>
-								<div class="controls">
-									<input type="text" class="input-block-level" id="inputserie" name="inputserie">
-								</div>
-						</div>
-    				</div>
-                </div>
+    		<input type="hidden" class="input-block-level" id="inputserie" name="inputserie">            
            </div>
     		<div class="control-group well span10">
         		<div class="row-fluid">
@@ -335,7 +321,7 @@ else
                 datatype: "clientSide",
                 width: 700,
                 async: false,
-                colNames: ['idpro', 'Producto', 'Nombre Producto', 'Serie', 'Cantidad', 'precio', 'Subtotal', 'IVA', 'Total', 'AplicaIVA' ],
+                colNames: ['idpro', 'Producto', 'Nombre Producto', 'Serie', 'Cantidad', 'precio', 'Subtotal', 'Total', 'AplicaIVA' ],
                 colModel: [
 				{ name: 'idpro', index: 'idpro', width: 90, sorttype: 'string', align: "center", frozen: true, sortable: false, hidden: true },
                         { name: 'producto', index: 'producto', width: 90, sorttype: 'string', align: "center", frozen: true, sortable: false, hidden: true },
@@ -343,8 +329,7 @@ else
 						{ name: 'serie', index: 'serie', width: 90, sorttype: 'string', align: "center", frozen: true, sortable: false, editable:true },
                         { name: 'cantidad', index: 'cantidad', width: 90, sorttype: 'string', align: "center", frozen: true, sortable: false, editable: false, editrules: { number: true }, editoptions: { dataInit: function (elem) { $(elem).bind("keypress", function (e) { return soloLetrasB(e) }) } } },
 						{ name: 'precio', index: 'precio', width: 90, sorttype: 'string', align: "center", frozen: true, sortable: false, editable: true, editrules: { number: true }, editoptions: { dataInit: function (elem) { $(elem).bind("keypress", function (e) { return soloLetrasB(e) }) } } },
-						{ name: 'subtotal', index: 'subtotal', width: 90, sorttype: 'string', align: "center", frozen: true, sortable: false },
-						{ name: 'iva', index: 'iva', width: 90, sorttype: 'string', align: "center", frozen: true, sortable: false },
+						{ name: 'subtotal', index: 'subtotal', width: 90, sorttype: 'string', align: "center", frozen: true, sortable: false },						
 						{ name: 'total', index: 'total', width: 90, sorttype: 'string', align: "center", frozen: true, sortable: false },
 						{ name: 'aplicaiva', index: 'aplicaiva', width: 90, sorttype: 'string', align: "center", frozen: true, sortable: false, hidden: true }
                     ],
@@ -532,14 +517,18 @@ else
 				{
 				datos = JSON.parse(resultado);
 
-				var res = verificarepuesto(datos['pro_id']);
+				var res = verificarepuesto(datos['']);
+
 				if(res == true)
 				{
 					
 				}
 				else
-				{
-					var met_gan = datos['met_gan_pvp'];
+				{														
+					precunit=((parseFloat(datos['pvp'])/1.12).toFixed(2));
+					subtotal = (precunit * $("#inputcantidad").val()).toFixed(2);
+					
+					/*var met_gan = datos['met_gan_pvp'];
 					var tot;
 					var iva;
 					var pvp;
@@ -586,8 +575,10 @@ else
 					
 					var total = (parseFloat(subtotal) + parseFloat(ivasubt)).toFixed(2);
 
+					*/
+
 					var mydata = [
-                     { idpro: datos['pro_id'], producto: $("#inputproducto").val(), serie:datos['pro_serie'], nombreproducto: $("#inputdetalle").val(), cantidad: $("#inputcantidad").val(), precio: precunit, total: total, iva: ivasubt, aplicaiva: datos['est_iva'], subtotal: subtotal, serie: $("#inputserie").val() }
+                     { idpro: datos['pro_id'], producto: $("#inputproducto").val(), serie:datos['pro_serie'], nombreproducto: $("#inputdetalle").val(), cantidad: $("#inputcantidad").val(), precio: precunit, total: 0, aplicaiva: datos['est_iva'], subtotal: subtotal, serie: $("#inputserie").val() }
         			];
            																				
 		var ids = jQuery("#list").jqGrid('getDataIDs');
@@ -605,8 +596,10 @@ else
  		{
  			alert('Solo se puede agregar hasta 7 items');
 		 }																																																				
+				
 				}
-				}
+
+			}
 			}
 			});
 			}
@@ -789,18 +782,18 @@ function guardarVentaCredito() {
 						}
 						else
 						{
-							var aux1 = (parseFloat(pasar.precio) * aux).toFixed(2);
-							var ivag = 0;
-							if(pasar.iva != 0)
-							{
-								ivag = (aux1 * 0.12).toFixed(2);
-								jQuery("#list").jqGrid('setRowData', pro, { iva: ivag});
-							}
-							var totg = (parseFloat(aux1) + parseFloat(ivag)).toFixed(2);
+							//var aux1 = (parseFloat(pasar.precio) * aux).toFixed(2);
+							//var ivag = 0;
+							//if(pasar.iva != 0)
+							//{
+							//	ivag = (aux1 * 0.12).toFixed(2);
+							//	jQuery("#list").jqGrid('setRowData', pro, { iva: ivag});
+							//}
+							//var totg = (parseFloat(aux1) + parseFloat(ivag)).toFixed(2);
 		
-							jQuery("#list").jqGrid('setRowData', pro, { cantidad: aux });
-							jQuery("#list").jqGrid('setRowData', pro, { subtotal: aux1});
-							jQuery("#list").jqGrid('setRowData', pro, { total: totg});
+							//jQuery("#list").jqGrid('setRowData', pro, { cantidad: aux });
+							//jQuery("#list").jqGrid('setRowData', pro, { subtotal: aux1});
+							//jQuery("#list").jqGrid('setRowData', pro, { total: totg});
 							
 							encerar();
 							calculatotales();
@@ -854,22 +847,29 @@ function calculatotales(){
 
     var rows = $('#list tr:gt(0)');
 	//sumar el total
-	rows.children('td:nth-child(11)').each(function () {
+	rows.children('td:nth-child(8)').each(function () {
 		var y = $(this).text().replace(",", ".");
 		sumtotal += parseFloat(y);
 	});
-	rows.children('td:nth-child(9)').each(function () {
+	rows.children('td:nth-child(8)').each(function () {
 		var y = $(this).text().replace(",", ".");
 		sumsubt += parseFloat(y);
 	});
-	rows.children('td:nth-child(10)').each(function () {
+	rows.children('td:nth-child(9)').each(function () {
 		var y = $(this).text().replace(",", ".");
 		sumiva += parseFloat(y);
 	});
+	
 	$('#inputsubt').val(sumsubt.toFixed(2));
-	$('#inputtot').val(sumtotal.toFixed(2));
-	$('#inputiva').val(sumiva.toFixed(2));
+	
+	var iva = document.getElementById("inputsubt").value
+	$('#inputiva').val((((iva*12)/100).toFixed(2)));
+	var sumatotal = parseFloat(document.getElementById("inputsubt").value);
+	var sumiva=parseFloat(document.getElementById("inputiva").value);
+	var totiva = sumtotal+sumiva;
+	$('#inputtot').val(totiva.toFixed(2));
 }
+
 $('#inputcantidad').bind('keypress', function(e) {
 if(e.which == 13) {
        	 addProducto();
@@ -933,7 +933,8 @@ var seri = elem[1];
 
 $("#inputproducto").val(prod);
 $("#inputserie").val(seri);
-$("#inputdetalle").val(prod);
+//$("#inputdetalle").val(prod);
+$("#inputdetalle").val(ui.item.label);
 },
 focus: function( event, ui ) {
 

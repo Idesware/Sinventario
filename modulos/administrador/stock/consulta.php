@@ -96,20 +96,22 @@ $(document).on('ready', function(){
 			 	}
 		 		if((est_iva=='n') && (met_gan_pvp=='p'))
 		 		{
-					porce=parseFloat(det_pro_costo)*parseFloat(val_gan_pvp)/100;
+					porce=(parseFloat(det_pro_costo)*parseFloat(val_gan_pvp))/100;
 					pvp=parseFloat(det_pro_costo)+porce;
 				}
 		 		if((est_iva=='s') && (met_gan_pvp=='f'))
 		 		{
-					iva=parseFloat(det_pro_costo)*12/100;
-					pvp=parseFloat(det_pro_costo)+parseFloat(val_gan_pvp)+parseFloat(iva);
+					aux=parseFloat(det_pro_costo)+parseFloat(val_gan_pvp);
+					iva=(parseFloat(aux)*12)/100;
+					pvp=parseFloat(aux)+parseFloat(iva);
 				}
 			
 				if((est_iva=='s') && (met_gan_pvp=='p'))
-				{
-					iva=parseFloat(det_pro_costo)*12/100;
-					porce=parseFloat(det_pro_costo)*parseFloat(val_gan_pvp)/100;
-					pvp=parseFloat(det_pro_costo)+parseFloat(porce)+parseFloat(iva);
+				{					
+					porce=(parseFloat(det_pro_costo)*parseFloat(val_gan_pvp))/100;
+					aux=parseFloat(det_pro_costo)+parseFloat(porce);
+					iva=(parseFloat(aux)*12)/100;					
+					pvp=parseFloat(aux)+parseFloat(iva);
 				}
 				var importe = document.getElementById('input_prec_vent');
    				importe.value = pvp.toFixed(2);
