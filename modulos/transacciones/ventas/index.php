@@ -498,7 +498,8 @@ else
 				pro_cod: $("#inputproducto").val(),
 				suc_id: $("#id_suc").val(),
 				accion: accion,
-				cantidad: $("#inputcantidad").val()
+				cantidad: $("#inputcantidad").val(),
+				serie: $("#inputserie").val()
 			},
 			success:  function(resultado) {
 				resu = resultado.replace(/(\r\n|\n|\r)/gm,"");
@@ -517,7 +518,7 @@ else
 				{
 				datos = JSON.parse(resultado);
 
-				var res = verificarepuesto(datos['']);
+				var res = verificarepuesto(datos['pro_id'], datos['ser_codigo']);
 
 				if(res == true)
 				{
@@ -750,12 +751,12 @@ function guardarVentaCredito() {
 	}
 }
 //Funcion que verifica si ya está agregado el repuesto a la grilla de pedidos
-        function verificarepuesto(idpro) {
+        function verificarepuesto(idpro,ser_codigo) {
             var ids = jQuery("#list").jqGrid('getDataIDs');
             for (var i = 0; i < ids.length; i++) {
                 var pro = ids[i];
                 var pasar = jQuery("#list").jqGrid('getRowData', pro);
-                if ((pasar.idpro == idpro)) {
+                if ((pasar.idpro == idpro) && (pasar.serie == ser_codigo)) {
 					
 					var aux = parseInt(pasar.cantidad) + parseInt($("#inputcantidad").val());
 					var url = $("#Url").val();
@@ -769,7 +770,8 @@ function guardarVentaCredito() {
 						pro_cod: $("#inputproducto").val(),
 						suc_id: $("#id_suc").val(),
 						accion: accion,
-						cantidad: aux
+						cantidad: aux,
+						serie: $("#inputserie").val()
 					},
 					success:  function(resultado) {
 						resu = resultado.replace(/(\r\n|\n|\r)/gm,"");
@@ -791,7 +793,7 @@ function guardarVentaCredito() {
 							//}
 							//var totg = (parseFloat(aux1) + parseFloat(ivag)).toFixed(2);
 		
-							//jQuery("#list").jqGrid('setRowData', pro, { cantidad: aux });
+							jQuery("#list").jqGrid('setRowData', pro, { cantidad: aux });
 							//jQuery("#list").jqGrid('setRowData', pro, { subtotal: aux1});
 							//jQuery("#list").jqGrid('setRowData', pro, { total: totg});
 							
@@ -802,8 +804,8 @@ function guardarVentaCredito() {
 					}
 					});
 							return true;
-						}
-					}
+				}
+			}
         }
 
 function soloLetrasB(e) {

@@ -100,28 +100,32 @@
 		$row_RS_datos2 = mysql_fetch_assoc($RS2);		
 		$stk_cantidad = $row_RS_datos2["stk_cantidad"];
 		$stk_cantidad_final = $stk_cantidad - $can;
-		$query_update_stk = sprintf("UPDATE stock set stk_cantidad = %s WHERE det_pro_id = %s AND stk_eliminado = 'N'",
+		$query_update_stk = sprintf("UPDATE stock set stk_cantidad = %s WHERE det_pro_id = %s AND stk_eliminado = %s",
                        GetSQLValueString($stk_cantidad_final, "text"),
-					   GetSQLValueString($det_pro_id, "text"));
+					   GetSQLValueString($det_pro_id, "int"),
+					   GetSQLValueString('N', "text"));
 		$query_3 = mysql_query($query_update_stk, $conexion_mysql) or die(mysql_error());
 		
-		
-		$query4=sprintf("SELECT * FROM serie WHERE det_pro_id = %s AND ser_eliminado = 'N'",
-    	GetSQLValueString($det_pro_id, "text"));
+		$query4=sprintf("SELECT * FROM serie WHERE det_pro_id = %s AND ser_eliminado = %s AND ser_codigo = %s",
+    	GetSQLValueString($det_pro_id, "int"),
+		GetSQLValueString('N', "text"),
+		GetSQLValueString($serie, "text"));
   		$RS4 = mysql_query($query4, $conexion_mysql) or die(mysql_error());
 		$row_RS_datos4 = mysql_fetch_assoc($RS4);		
 		$stk_cantidad_serie = $row_RS_datos4["ser_cantidad"];
 		$stk_cantidad_final_serie = $stk_cantidad_serie - $can;
-		$query_update_ser = sprintf("UPDATE serie set ser_cantidad = %s WHERE det_pro_id = %s AND ser_eliminado = 'N'",
+		$query_update_ser = sprintf("UPDATE serie set ser_cantidad = %s WHERE det_pro_id = %s AND ser_eliminado = %s AND ser_codigo = %s",
                        GetSQLValueString($stk_cantidad_final_serie, "text"),
-					   GetSQLValueString($det_pro_id, "int"));
+					   GetSQLValueString($det_pro_id, "int"),
+					   GetSQLValueString('N', "text"),
+					   GetSQLValueString($serie, "text"));
 		mysql_query($query_update_ser, $conexion_mysql) or die(mysql_error());
-		
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		}
 		if(($condPago==0)||($condPago==2)||($condPago==3)){//VENTA A CONTADO
-		$querycaja=sprintf("SELECT caj_valor FROM caja WHERE suc_id = %s AND caj_eliminado = 'N'",
-    	GetSQLValueString($sucursal, "text")); 
+		$querycaja=sprintf("SELECT caj_valor FROM caja WHERE suc_id = %s AND caj_eliminado = %s",
+    	GetSQLValueString($sucursal, "text"),
+		GetSQLValueString('N', "text")); 
   		$RScaja = mysql_query($querycaja, $conexion_mysql) or die(mysql_error());
 		$row_RS_datoscaja = mysql_fetch_assoc($RScaja);		
 		$caja_valor = $row_RS_datoscaja["caj_valor"];
@@ -182,25 +186,27 @@
 		$pro_cod = $_POST['pro_cod'];
 		$suc_id = $_POST['suc_id'];
 		$cantidad = $_POST['cantidad'];
+		$serie = $_POST['serie'];
 		
 		$query=sprintf("SELECT pro_id FROM producto WHERE pro_codigo = %s AND suc_id = %s AND pro_eliminado = 'N'",
     	GetSQLValueString($pro_cod, "text"),
-		GetSQLValueString($suc_id, "int"));    
+		GetSQLValueString($suc_id, "int"));
   		$RS = mysql_query($query, $conexion_mysql) or die(mysql_error());
 		$row_RS_datos = mysql_fetch_assoc($RS);		
 		$pro_id = $row_RS_datos["pro_id"];
 
-		$query1=sprintf("SELECT det_pro_id, detalle_producto.pro_id, det_pro_costo, val_gan_pvp, est_iva, met_gan_pvp,pvp FROM detalle_producto INNER JOIN producto ON detalle_producto.pro_id = producto.pro_id WHERE detalle_producto.pro_id = %s AND det_pro_eliminado = 'N'",
-		GetSQLValueString($pro_id, "int"));    
+		$query1=sprintf("SELECT detalle_producto.det_pro_id, detalle_producto.pro_id, det_pro_costo, val_gan_pvp, est_iva, met_gan_pvp,pvp, ser_codigo FROM detalle_producto INNER JOIN producto ON detalle_producto.pro_id = producto.pro_id INNER JOIN serie ON detalle_producto.det_pro_id = serie.det_pro_id WHERE detalle_producto.pro_id = %s AND det_pro_eliminado = 'N' AND ser_codigo = %s",
+		GetSQLValueString($pro_id, "int"),
+		GetSQLValueString($serie, "text"));
   		$RS1 = mysql_query($query1, $conexion_mysql) or die(mysql_error());
 		$row_RS_datos1 = mysql_fetch_assoc($RS1);
 				
-		$query2=sprintf("SELECT stk_cantidad FROM stock WHERE det_pro_id = %s",
-    	GetSQLValueString($row_RS_datos1['det_pro_id'], "text"));    
+		$query2=sprintf("SELECT ser_cantidad FROM stock INNER JOIN detalle_producto ON stock.det_pro_id = detalle_producto.det_pro_id INNER JOIN serie ON detalle_producto.det_pro_id = serie.det_pro_id WHERE stock.det_pro_id = %s AND ser_codigo = %s",
+    	GetSQLValueString($row_RS_datos1['det_pro_id'], "text"),
+		GetSQLValueString($serie, "text"));
   		$RS2 = mysql_query($query2, $conexion_mysql) or die(mysql_error());
-		$row_RS_datos2 = mysql_fetch_assoc($RS2);		
-		$stock = $row_RS_datos2["stk_cantidad"];
-			
+		$row_RS_datos2 = mysql_fetch_assoc($RS2);
+		$stock = $row_RS_datos2["ser_cantidad"];
 		if (!isset($pro_id)) {
 			echo "false";
 		}
@@ -214,17 +220,6 @@
 			echo "stock";
 		}
 	}
-
-
-
-
-
-
-
-
-
-
-
 
 
 
