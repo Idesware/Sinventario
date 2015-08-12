@@ -168,12 +168,6 @@
 					    GetSQLValueString($cta, "text"),
 					   GetSQLValueString(1, "text"));
 		$querydetpag = mysql_query($query_insert_det_pago, $conexion_mysql) or die(mysql_error());		
-
-
-
-
-
-
 		}
 		echo $referencia;
 	}
